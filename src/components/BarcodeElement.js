@@ -9,16 +9,22 @@ import {
   ScanSettings,
   SingleImageModeSettings,
 } from "scandit-sdk";
+import GetNutritionalData from "./DisplayNutrients";
+
 
 // Taken from scandit-sdk-react Demo
 
 class Demo extends Component {
 
   licenseKey = "AYUivAWjJzC6JurcKQWiRq08XVOgArB9gkGHRLFtek/cEkA/zFyySRx1F+1WbzdmrRmoJpB/pCvUJUSOPUQ36pkH8LSQUv+nwh9x9D9liFMYU3WeAg/Cs34rHmRfML+ufxsvlouc3h2KXyOTxqtMbfokTV26rUSAIxu/QFBYnDsyvoTgIPC0Muj4TXkAfioaN3YxTQBT+6Ng80pJnqGYlkqYHRZk1qf2fC505M4RgHVN4FbT2xB/rMjRdfxhTbtF49yYcB8m6gDkv2tXmRoa4VxYijCKGTq3c4d/80fw0Ck1WwpBh62/oG7HyBqOG0yUayQqOpihzOFevU7SBhFM8ZulJCZcdbtqkq8uxCktzxarf490jkiRzzoGOe++fsFWBqPlcf2g+Geull2lyUE93WxbhOuxFs89lmaemn5K9SSdOTl0b33zzM4Nib0OxCVbRjKXeO2Bfb1Yexx/AERos6Li2+FQcRLbYNhCkl6AEPlq6srs8KnbeXwENv1HoQloCfZ5rKAID+CgwczpLsmPPYmGwxD5ToyVmQtZRLu7e4eKDX819drAA4JM96byPXfcTgM/6pkigbtDhUynMWD+FuG+yJ/bJB5mGPEbVBknO511+kw8I53aJ3B7YIVQyX6EwL02crj9Mkx2VSRiN42G96ofNTrGsCQGhotth/97JR/28aXYqHIjRrKWi01wT3WqUhQuINuRtcI+xcr0uRhKKm3LtahL6nxQJNNPZ1SjwUoq3kyHXAGdalKDqzvVgGLVCTY8EAoyF0XMOODOAW4OS03qqnnkiF62wSs15/WQ/zwfLxY=";
+  scannedBarcodes = [];
+  shouldShowNutrients = false;
+
 
   constructor(props) {
     super(props);
     this.state = {
+      //shouldShowNutrients: false,
       shouldShowScannerComponent: false,
       paused: true,
       isCode128Enabled: true,
@@ -31,12 +37,12 @@ class Demo extends Component {
       enablePinchToZoom: true,
       enableTapToFocus: true,
       enableTorchToggle: true,
-      guiStyle: BarcodePicker.GuiStyle.VIEWFINDER,
+      guiStyle: BarcodePicker.GuiStyle.LASER,
       laserArea: { x: 0, y: 0, width: 1, height: 1 },
       playSoundOnScan: true,
-      targetScanningFPS: 30,
+      targetScanningFPS: 20, // frames per second to be processed
       vibrateOnScan: false,
-      videoFit: BarcodePicker.ObjectFit.COVER,
+      videoFit: BarcodePicker.ObjectFit.CONTAIN,
       visible: true,
       viewfinderArea: { x: 0, y: 0, width: 1, height: 1 },
       zoom: 0,
@@ -57,7 +63,7 @@ class Demo extends Component {
   getScanSettings = () => {
     const scanSettings = new ScanSettings({
       enabledSymbologies: ["qr", "ean8", "ean13", "upca", "upce", "code128", "code39", "code93", "itf"],
-      codeDuplicateFilter: 1000
+      codeDuplicateFilter: -1 // each unique code is only scanned once
     });
     if (this.state.isCode128Enabled) {
       scanSettings.enableSymbologies(Barcode.Symbology.CODE128);
@@ -91,7 +97,12 @@ class Demo extends Component {
           // Picker events
           onReady={() => this.setState({ scannerReady: true })}
           // eslint-disable-next-line no-console
-          onScan={console.log}
+          onScan={(scanResult)=>{ // SAVE RESULTS INTO AN ARRAY
+            console.log(this.scannedBarcodes === undefined);
+            this.scannedBarcodes.push(scanResult.barcodes[0].data);
+            console.log(this.scannedBarcodes);
+          }}
+
           // eslint-disable-next-line no-console
           onScanError={console.error}
 
@@ -121,11 +132,13 @@ class Demo extends Component {
           zoom={this.state.zoom}
           // only set on component creation, can not be changed afterwards
           cameraType={this.state.cameraType}
-          singleImageModeSettings={this.state.singleImageModeSettings} // only set on component creation, can not be changed afterwards
+          singleImageModeSettings={this.state.singleImageModeSettings}
         />
       )
     );
   };
+
+  
 
   render() {
     const scanner = this.getScanner();
@@ -162,25 +175,28 @@ class Demo extends Component {
     );
     const stopButton = (
       <button
-        onClick={() => this.setState({ paused: true })}
+        onClick={() => {
+          this.shouldShowNutrients = true;
+          this.setState({ paused: true});
+        }}
         disabled={!this.state.shouldShowScannerComponent || this.state.paused}
       >
-        Pause
+        Done Scanning
       </button>
     );
 
     return (
       <div>
-        <p>Expected Scanner State: {this.scannerState()}</p>
+        <p>Barcode scanner state: {this.scannerState()}</p>
         <div>
           {showButton}
           {hideButton}
-          <span>Showing/hiding the component adds/removes it, which initializes/deinitalizes the scanner</span>
+          <span> Initializes/deinitalizes the scanner</span>
         </div>
         {startButton}
         {stopButton}
         <div>
-          Possible cameras (if none chosen, none specified):
+          Choose a camera: 
           {this.state.cameras.map((camera) => (
             <button key={camera.deviceId} onClick={() => this.setState({ activeCamera: camera })}>
               {camera.label}
@@ -188,6 +204,21 @@ class Demo extends Component {
           ))}
         </div>
         {scanner}
+
+
+
+
+
+        {this.shouldShowNutrients ? (
+        <div>
+          <GetNutritionalData
+            barcodeArray={this.scannedBarcodes}
+          />
+        </div>) : null}
+
+
+
+
       </div>
     );
   }
