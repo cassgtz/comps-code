@@ -143,41 +143,21 @@ class Demo extends Component {
   render() {
     const scanner = this.getScanner();
 
-    const showButton = (
-      <button
-        onClick={() => this.setState({ shouldShowScannerComponent: true })}
-        disabled={this.state.shouldShowScannerComponent}
-      >
-        Show
-      </button>
-    );
-    const hideButton = (
-      <button
-        onClick={() =>
-          this.setState({
-            shouldShowScannerComponent: false,
-            scannerReady: false,
-          })
-        }
-        disabled={!this.state.shouldShowScannerComponent}
-      >
-        Hide
-      </button>
-    );
-
     const startButton = (
       <button
-        onClick={() => this.setState({ paused: false, accessCamera: true })}
-        disabled={!this.state.shouldShowScannerComponent || !this.state.paused}
+        onClick={() => this.setState({ shouldShowScannerComponent: true, paused: false, accessCamera: true })}
+        disabled={this.state.shouldShowScannerComponent || !this.state.paused}
       >
-        Start
+        Start Scanning
       </button>
     );
     const stopButton = (
       <button
         onClick={() => {
-          this.shouldShowNutrients = true;
-          this.setState({ paused: true});
+          if (this.scannedBarcodes.length !== 0) {
+            this.shouldShowNutrients = true;
+          }
+          this.setState({ paused: true, shouldShowScannerComponent: false, scannerReady: false});
         }}
         disabled={!this.state.shouldShowScannerComponent || this.state.paused}
       >
@@ -188,26 +168,9 @@ class Demo extends Component {
     return (
       <div>
         <p>Barcode scanner state: {this.scannerState()}</p>
-        <div>
-          {showButton}
-          {hideButton}
-          <span> Initializes/deinitalizes the scanner</span>
-        </div>
         {startButton}
         {stopButton}
-        <div>
-          Choose a camera: 
-          {this.state.cameras.map((camera) => (
-            <button key={camera.deviceId} onClick={() => this.setState({ activeCamera: camera })}>
-              {camera.label}
-            </button>
-          ))}
-        </div>
         {scanner}
-
-
-
-
 
         {this.shouldShowNutrients ? (
         <div>
@@ -215,8 +178,6 @@ class Demo extends Component {
             barcodeArray={this.scannedBarcodes}
           />
         </div>) : null}
-
-
 
 
       </div>
