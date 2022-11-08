@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ScanditBarcodeScanner from "scandit-sdk-react";
 import {
-  Barcode,
   BarcodePicker,
   Camera,
   CameraAccess,
@@ -24,10 +23,8 @@ class Demo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //shouldShowNutrients: false,
       shouldShowScannerComponent: false,
       paused: true,
-      isCode128Enabled: true,
       accessCamera: false,
       cameras: [],
       cameraSettings: {
@@ -40,13 +37,13 @@ class Demo extends Component {
       guiStyle: BarcodePicker.GuiStyle.LASER,
       laserArea: { x: 0, y: 0, width: 1, height: 1 },
       playSoundOnScan: true,
-      targetScanningFPS: 20, // frames per second to be processed
+      targetScanningFPS: 40, // frames per second to be processed
       vibrateOnScan: false,
       videoFit: BarcodePicker.ObjectFit.CONTAIN,
       visible: true,
       viewfinderArea: { x: 0, y: 0, width: 1, height: 1 },
       zoom: 0,
-      cameraType: Camera.Type.BACK,
+      cameraType: Camera.Type.FRONT,
       singleImageModeSettings: {
         desktop: {
           usageStrategy: SingleImageModeSettings.UsageStrategy.FALLBACK,
@@ -62,14 +59,9 @@ class Demo extends Component {
 
   getScanSettings = () => {
     const scanSettings = new ScanSettings({
-      enabledSymbologies: ["qr", "ean8", "ean13", "upca", "upce", "code128", "code39", "code93", "itf"],
+      enabledSymbologies: ["ean8", "ean13", "upca", "upce", "code128", "code39", "code93", "itf"],
       codeDuplicateFilter: -1 // each unique code is only scanned once
     });
-    if (this.state.isCode128Enabled) {
-      scanSettings.enableSymbologies(Barcode.Symbology.CODE128);
-    } else {
-      scanSettings.disableSymbologies(Barcode.Symbology.CODE128);
-    }
     return scanSettings;
   };
 
