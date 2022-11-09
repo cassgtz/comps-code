@@ -22,55 +22,43 @@ export default class GetNutritionalData extends Component{
     };
 
 
-
     async componentDidMount(){
 
         // API credentials & set up for Edamam API
         const app_ID = '4919b9fe'
         const api_key = '54d44224aed9410f8c1ea485afe7c71c'
 
-        //vitamins:
-        var vitamin_A = 0; // VITA_RAE
-        var thiamin = 0; //THIA
-        var riboflavin = 0; //RIBF
-        var niacin = 0; // NIA
-        var B6 = 0; // VITB6A
-        var B12 = 0; // VITB12
-        var vitamin_C = 0; // VITC
-        var vitamin_D = 0; // VITD
-        var vitamin_E = 0; //TOCPHA
-        var vitamin_K = 0; // VITK1
-        var B9 = 0; // FOLAC & FOLDFE & FOLFD
-
+        /*
         // minerals:
         var zinc = 0; // ZN
         var phosphorus = 0; // P
         var magnesium = 0; // MG
         var potassium = 0; // K
         var iron = 0; // FE
+        */
 
         // array of vitamins in query form
-        var vitamins_query_list = ['VITA_RAE', 'THIA', 'RIBF', 'NIA', 'VITB6A', 'VITB12', 'VITC', 'VITD', 'TOCPHA', 'VITK1', 'FOLAC', 'FOLDFE', 'FOLFD'];
+        var vit_query_list = ['VITA_RAE', 'THIA', 'RIBF', 'NIA', 'VITB6A', 'VITB12', 'VITC', 'VITD', 'TOCPHA', 'VITK1', 'FOLAC', 'FOLDFE', 'FOLFD'];
 
-        // create a map of vitamins & their quantities
+        // create a dictionary of vitamin (key) & their quantities (value)
         var vitamin_map = new Map();
-        var vitamin_keys = ["vitamin_A", "thiamin", "riboflavin", "niacin", "B6", "vitamin_C", "vitamin_D", "vitamin_E", "vitamin_K", "B9"];
+        var vitamin_keys = ["vitamin_A", "thiamin", "riboflavin", "niacin", "B6", "B12", "vitamin_C", "vitamin_D", "vitamin_E", "vitamin_K", "B9"];
         // initialize everything to 0
         for(var j = 0; j < vitamin_keys.length; j++){ 
             vitamin_map.set(vitamin_keys[j], 0); 
         } 
 
         // set vitamin values
-        // add the vitmain value to existing value in map
-        function addVitamins(obj, arr){
-            for (var i = 0; i < vitamins_query_list.length; i++) {
+        // add the vitmain value to existing value in dictionary
+        function addVitamins(obj, vit_query_list){
+            for (var i = 0; i < vitamin_keys.length; i++) {
                 // handle B9, it takes 3 query keys
-                if (i === 9) {
+                if (i === 10) {
                     var B9_total = vitamin_map.get(vitamin_keys[i]) + getVitaminValue(obj, 'FOLAC') + getVitaminValue(obj, 'FOLDFE') + getVitaminValue(obj, 'FOLFD');
                     vitamin_map.set(vitamin_keys[i], B9_total);
                 }
                 else {
-                    var new_value = vitamin_map.get(vitamin_keys[i]) + getVitaminValue(obj, vitamins_query_list[i]);
+                    var new_value = vitamin_map.get(vitamin_keys[i]) + getVitaminValue(obj, vit_query_list[i]);
                     vitamin_map.set(vitamin_keys[i], new_value);
                 }
             }
@@ -80,17 +68,13 @@ export default class GetNutritionalData extends Component{
         // get its value & return as a number 
         // if null or not found, return 0
         function getVitaminValue(obj, key){
-            const arr = obj['hints'][0];
-            if(arr.length){
-               const result = arr.filter(el => {
-                  return el['key'] === key;
-               });
-               if(result && result.length){
-                  return Number(result[0].value);
-               }
-               else{
-                  return 0;
-               }
+            const value = obj['hints'][0]['food']['nutrients'][key];
+            console.log(key + value);
+            if (value) {
+                return Number(value);
+            }
+            else{
+                return 0;
             }
          }
 
@@ -103,20 +87,29 @@ export default class GetNutritionalData extends Component{
             console.log(data);
 
             // Add all vitamins 
-            addVitamins(data, vitamins_query_list);
-
-
-
-            //carbs += Number(data.product.nutriments.carbohydrates_100g);
-            //protein += Number(data.product.nutriments.proteins_100g);
-            //fat += Number(data.product.nutriments.fat_100g);
+            addVitamins(data, vit_query_list);
         }
+
+        console.log("Updated:");
         console.log([...vitamin_map.entries()]);
+
+        // get missing vitamins (vitamin with value 0)
+        let missing_vitamins = [...vitamin_map.entries()]
+        .filter(({ 1: v }) => v === 0)
+        .map(([k]) => k);
+        console.log(missing_vitamins);
+        
+
+        // Recommendations
+
+        if (missing_vitamins.includes('vitamin_A')){
+
+        }
+
+
 
         //this.setState({total_carbs: this.state.total_carbs + carbs, total_protein: this.state.total_protein + protein, total_fat: this.state.total_fat + fat});
         this.setState({loading: false});
-
-
     }
 
 
@@ -128,7 +121,7 @@ render(){
             ) : (
                 <div>
                     <ul>
-                        <li>Biotin: {this.state.total_biotin}</li>\
+                        <li>Biotin: {this.state.total_biotin}</li>
                     </ul>
                 </div>
             )}
