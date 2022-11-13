@@ -43,7 +43,9 @@ export default class GetNutritionalData extends Component{
         // create a dictionary of vitamin (key) & their quantities (value)
         var vitamin_map = new Map();
         var vitamin_keys = ["vitamin_A", "thiamin", "riboflavin", "niacin", "B6", "B12", "vitamin_C", "vitamin_D", "vitamin_E", "vitamin_K", "B9"];
-        // initialize everything to 0
+        var male_rec_values_mcg = [900, 1200, 1300, 1600, 1300, 2.4, 90000, 15, 1500, 120, 400];
+        var female_rec_values_mcg = [700, 1100, 1100, 1400, 1300, 2.4, 75000, 15, 1500, 90, 400];
+        // initialize everything to 0 to handle nulls in queries
         for(var j = 0; j < vitamin_keys.length; j++){ 
             vitamin_map.set(vitamin_keys[j], 0); 
         } 
@@ -83,29 +85,51 @@ export default class GetNutritionalData extends Component{
             // send API request
             var GETurl = "https://api.edamam.com/api/food-database/v2/parser?app_id=" + app_ID + "&app_key=" + api_key + "&upc=" + this.props.barcodeArray[i] + "&nutrition-type=cooking";
             const response = await fetch(GETurl);
-            var data = await response.json();
-            console.log(data);
+            // check if a response returned
+            if (response.ok) {
+                var data = await response.json();
+                console.log(data);
 
-            // Add all vitamins 
-            addVitamins(data, vit_query_list);
+                // Add all vitamins 
+                addVitamins(data, vit_query_list);
+            }
         }
 
         console.log("Updated:");
         console.log([...vitamin_map.entries()]);
 
-        // get missing vitamins (vitamin with value 0)
+
+        // Get missing vitamins (vitaminS with value 0)
         let missing_vitamins = [...vitamin_map.entries()]
         .filter(({ 1: v }) => v === 0)
         .map(([k]) => k);
-        console.log(missing_vitamins);
-        
 
-        // Recommendations
 
-        if (missing_vitamins.includes('vitamin_A')){
+        // ------------------------------------------------------------------------
+
+        // Get deficient vitamins
+        if (this.gender === "Male"){
+
+            for (var k = 0; k < vitamin_keys.length; k++) {
+                
+            }
+            
+
+            
+
+
+        }
+        else {
 
         }
 
+
+        // Recommendations
+        // HERE HANDLE THE OPTION OF ONLY CHECKING FOR WHAT LABELS REQUIRE
+        // ONLY CHECK IF MISSING_VITMAINS INCLUDES THOSE 
+        if (missing_vitamins.includes('vitamin_A')){
+
+        }
 
 
         //this.setState({total_carbs: this.state.total_carbs + carbs, total_protein: this.state.total_protein + protein, total_fat: this.state.total_fat + fat});
