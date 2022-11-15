@@ -108,7 +108,7 @@ export default class GetNutritionalData extends Component{
         // ------------------------------------------------------------------------
 
         // Get deficient vitamins
-        if (this.gender === "Male"){
+        if (this.sex === "Male"){
 
             for (var k = 0; k < vitamin_keys.length; k++) {
                 

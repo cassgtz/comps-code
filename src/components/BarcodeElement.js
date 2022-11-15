@@ -11,15 +11,14 @@ import {
 import GetNutritionalData from "./DisplayNutrients";
 
 
-// Taken from scandit-sdk-react Demo
+// Barcode scanner set up taken from scandit-sdk-react Demo
 
 class Demo extends Component {
 
   licenseKey = "AYUivAWjJzC6JurcKQWiRq08XVOgArB9gkGHRLFtek/cEkA/zFyySRx1F+1WbzdmrRmoJpB/pCvUJUSOPUQ36pkH8LSQUv+nwh9x9D9liFMYU3WeAg/Cs34rHmRfML+ufxsvlouc3h2KXyOTxqtMbfokTV26rUSAIxu/QFBYnDsyvoTgIPC0Muj4TXkAfioaN3YxTQBT+6Ng80pJnqGYlkqYHRZk1qf2fC505M4RgHVN4FbT2xB/rMjRdfxhTbtF49yYcB8m6gDkv2tXmRoa4VxYijCKGTq3c4d/80fw0Ck1WwpBh62/oG7HyBqOG0yUayQqOpihzOFevU7SBhFM8ZulJCZcdbtqkq8uxCktzxarf490jkiRzzoGOe++fsFWBqPlcf2g+Geull2lyUE93WxbhOuxFs89lmaemn5K9SSdOTl0b33zzM4Nib0OxCVbRjKXeO2Bfb1Yexx/AERos6Li2+FQcRLbYNhCkl6AEPlq6srs8KnbeXwENv1HoQloCfZ5rKAID+CgwczpLsmPPYmGwxD5ToyVmQtZRLu7e4eKDX819drAA4JM96byPXfcTgM/6pkigbtDhUynMWD+FuG+yJ/bJB5mGPEbVBknO511+kw8I53aJ3B7YIVQyX6EwL02crj9Mkx2VSRiN42G96ofNTrGsCQGhotth/97JR/28aXYqHIjRrKWi01wT3WqUhQuINuRtcI+xcr0uRhKKm3LtahL6nxQJNNPZ1SjwUoq3kyHXAGdalKDqzvVgGLVCTY8EAoyF0XMOODOAW4OS03qqnnkiF62wSs15/WQ/zwfLxY=";
   scannedBarcodes = [];
   shouldShowNutrients = false;
-  gender = "Female";
-
+  sex = "Female";
 
   constructor(props) {
     super(props);
@@ -136,29 +135,28 @@ class Demo extends Component {
   render() {
     const scanner = this.getScanner();
 
-    const genderSelection = (
+    const sexSelection = (
       <form>
-        <p>Gender:</p>
+        <p>Sex:</p>
         <div>
           <label>
             <input
               type="radio"
-              name="Gender"
+              name="Sex"
               value="Female"
-              onChange={(changeEvent)=>{this.gender = changeEvent.target.value; console.log(this.gender);}}
+              onChange={(changeEvent)=>{this.sex = changeEvent.target.value; console.log(this.sex);}}
               defaultChecked
             />
             Female
           </label>
         </div>
-
         <div>
           <label>
             <input
               type="radio"
-              name="Gender"
+              name="Sex"
               value="Male"
-              onChange={(changeEvent)=>{this.gender = changeEvent.target.value; console.log(this.gender);}}
+              onChange={(changeEvent)=>{this.sex = changeEvent.target.value; console.log(this.sex);}}
             />
             Male
           </label>
@@ -193,7 +191,7 @@ class Demo extends Component {
 
     return (
       <div>
-        <div>{genderSelection}</div>
+        <div>{sexSelection}</div>
         <p>Barcode scanner state: {this.scannerState()}</p>
         {startButton}
         {stopButton}
@@ -203,10 +201,9 @@ class Demo extends Component {
         <div>
           <GetNutritionalData
             barcodeArray={this.scannedBarcodes}
-            gender={this.gender}
+            sex={this.sex}
           />
         </div>) : null}
-
 
       </div>
     );
