@@ -1,5 +1,7 @@
 import React, { Component} from "react";
 import ScanditBarcodeScanner from "scandit-sdk-react";
+
+import { Switch } from "@material-ui/core";
 import {
   BarcodePicker,
   Camera,
@@ -19,6 +21,7 @@ class Demo extends Component {
   scannedBarcodes = [];
   shouldShowNutrients = false;
   sex = "Female";
+  checkAll = 0;
 
   constructor(props) {
     super(props);
@@ -130,10 +133,17 @@ class Demo extends Component {
     );
   };
 
-  
-
   render() {
     const scanner = this.getScanner();
+
+    const checkAllSwitch = (
+      <span style={{ margin: "15px" }}>
+          <Switch
+              onChange={ ()=>{this.checkAll === 0 ? this.checkAll = 1 : this.checkAll = 0; console.log(this.checkAll);}}
+          />
+          Check for ALL vitamins
+      </span>
+    );
 
     const sexSelection = (
       <form>
@@ -191,6 +201,7 @@ class Demo extends Component {
 
     return (
       <div>
+        {checkAllSwitch}
         <div>{sexSelection}</div>
         <p>Barcode scanner state: {this.scannerState()}</p>
         {startButton}
@@ -202,6 +213,7 @@ class Demo extends Component {
           <GetNutritionalData
             barcodeArray={this.scannedBarcodes}
             sex={this.sex}
+            checkAll={this.checkAll}
           />
         </div>) : null}
 

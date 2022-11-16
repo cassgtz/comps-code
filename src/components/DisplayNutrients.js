@@ -4,7 +4,8 @@ import React, {Component} from "react";
 export default class GetNutritionalData extends Component{
 
     state={
-        loading: true,
+        loading: true
+        /*
         total_vitamin_A: 0,
         total_thiamin: 0,
         total_riboflavin: 0,
@@ -18,7 +19,7 @@ export default class GetNutritionalData extends Component{
         total_choline: 0,
         total_vitamin_D: 0,
         total_vitamin_E: 0,
-        total_vitamin_K: 0
+        total_vitamin_K: 0*/
     };
 
 
@@ -37,17 +38,18 @@ export default class GetNutritionalData extends Component{
         var iron = 0; // FE
         */
 
+        // SET VARIABLES
+
         // array of vitamins in query form
         var vit_query_list = ['VITA_RAE', 'THIA', 'RIBF', 'NIA', 'VITB6A', 'VITB12', 'VITC', 'VITD', 'TOCPHA', 'VITK1', 'FOLAC', 'FOLDFE', 'FOLFD'];
-
         // create a dictionary of vitamin (key) & their quantities (value)
-        var vitamin_map = new Map();
+        var vitamin_values = new Map();
         var vitamin_keys = ["vitamin_A", "thiamin", "riboflavin", "niacin", "B6", "B12", "vitamin_C", "vitamin_D", "vitamin_E", "vitamin_K", "B9"];
         var male_rec_values_mcg = [900, 1200, 1300, 1600, 1300, 2.4, 90000, 15, 1500, 120, 400];
         var female_rec_values_mcg = [700, 1100, 1100, 1400, 1300, 2.4, 75000, 15, 1500, 90, 400];
-        // initialize everything to 0 to handle nulls in queries
+        // handle nulls in queries -> initialize everything to 0
         for(var j = 0; j < vitamin_keys.length; j++){ 
-            vitamin_map.set(vitamin_keys[j], 0); 
+            vitamin_values.set(vitamin_keys[j], 0); 
         } 
 
         // set vitamin values
@@ -56,12 +58,12 @@ export default class GetNutritionalData extends Component{
             for (var i = 0; i < vitamin_keys.length; i++) {
                 // handle B9, it takes 3 query keys
                 if (i === 10) {
-                    var B9_total = vitamin_map.get(vitamin_keys[i]) + getVitaminValue(obj, 'FOLAC') + getVitaminValue(obj, 'FOLDFE') + getVitaminValue(obj, 'FOLFD');
-                    vitamin_map.set(vitamin_keys[i], B9_total);
+                    var B9_total = vitamin_values.get(vitamin_keys[i]) + getVitaminValue(obj, 'FOLAC') + getVitaminValue(obj, 'FOLDFE') + getVitaminValue(obj, 'FOLFD');
+                    vitamin_values.set(vitamin_keys[i], B9_total);
                 }
                 else {
-                    var new_value = vitamin_map.get(vitamin_keys[i]) + getVitaminValue(obj, vit_query_list[i]);
-                    vitamin_map.set(vitamin_keys[i], new_value);
+                    var new_value = vitamin_values.get(vitamin_keys[i]) + getVitaminValue(obj, vit_query_list[i]);
+                    vitamin_values.set(vitamin_keys[i], new_value);
                 }
             }
         }
@@ -89,47 +91,58 @@ export default class GetNutritionalData extends Component{
             if (response.ok) {
                 var data = await response.json();
                 console.log(data);
-
                 // Add all vitamins 
                 addVitamins(data, vit_query_list);
             }
         }
 
         console.log("Updated:");
-        console.log([...vitamin_map.entries()]);
+        console.log([...vitamin_values.entries()]);
 
 
         // Get missing vitamins (vitaminS with value 0)
-        let missing_vitamins = [...vitamin_map.entries()]
+        let missing_vitamins = [...vitamin_values.entries()]
         .filter(({ 1: v }) => v === 0)
         .map(([k]) => k);
-
 
         // ------------------------------------------------------------------------
 
         // Get deficient vitamins
         if (this.sex === "Male"){
-
             for (var k = 0; k < vitamin_keys.length; k++) {
-                
+                //get vitamin value from map
+                //compare to recommended value
+                if (vitamin_values.get(vitamin_keys[k] < male_rec_values_mcg[k])) {
+                    // if its below, add to missing_vitamins
+                    missing_vitamins.push(vitamin_keys[k]);
+                }
             }
-            
-
-            
-
-
         }
         else {
-
+            // repeat for female values
+            for (var s = 0; s < vitamin_keys.length; s++) {
+                if (vitamin_values.get(vitamin_keys[s] < female_rec_values_mcg[s])) {
+                    // if its below, add to missing_vitamins
+                    missing_vitamins.push(vitamin_keys[s]);
+                }
+            }
         }
 
 
         // Recommendations
         // HERE HANDLE THE OPTION OF ONLY CHECKING FOR WHAT LABELS REQUIRE
         // ONLY CHECK IF MISSING_VITMAINS INCLUDES THOSE 
-        if (missing_vitamins.includes('vitamin_A')){
+
+        if (this.checkAll === 0){
+            if (missing_vitamins.includes('vitamin_A')){
+                
+            }
 
         }
+        else{
+            //CHECK FOR ALL 
+        }
+
 
 
         //this.setState({total_carbs: this.state.total_carbs + carbs, total_protein: this.state.total_protein + protein, total_fat: this.state.total_fat + fat});
