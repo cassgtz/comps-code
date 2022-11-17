@@ -15,14 +15,31 @@ export default class Recommendations extends Component{
           vitamin_D: ["Cod liver oil", "Trout (rainbow)", "Salmon (sockeye)", "Mushrooms (white)"],
           vitamin_E: ["Wheat germ oil", "Sunflower seeds", "Almonds", "Sunflower oil", "Safflower oil", "Hazelnuts"],
           B9: ["Beef liver", "Spinach", "Black-eyed peas", "Breakfast cereals", "White rice", "Asparagus", "Brussels"]
-        }
+        },
+        requiredVitamins: ["vitamin_D"]
     };
 
 
     render() {
-        <div>
-
-        </div>
+        return(
+            <div>
+                {this.missing_vitamins.map((vitamin) => (
+                    <div>
+                        {this.checkAll === 0 ? (
+                            this.state.food_sources[vitamin].map((food) => { 
+                                return <DropdownList data={food} defaultValue={vitamin}/>;
+                                })
+                        ) : (
+                            (this.state.food_sources.includes(vitamin) ? 
+                                this.state.food_sources[vitamin].map((food) => { 
+                                    return <DropdownList data={food} defaultValue={vitamin}/>;
+                                }) :
+                                    null)
+                        )}
+                    </div>
+                ))}
+            </div>
+        );
     }
 
 }

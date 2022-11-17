@@ -1,25 +1,11 @@
 import React, {Component} from "react";
+import Recommendations from "./Recommendations";
 
 
 export default class GetNutritionalData extends Component{
 
     state={
         loading: true
-        /*
-        total_vitamin_A: 0,
-        total_thiamin: 0,
-        total_riboflavin: 0,
-        total_niacin:0,
-        total_B5: 0,
-        total_B6: 0,
-        total_B12: 0,
-        total_B9: 0,
-        total_biotin: 0,
-        total_vitamin_C: 0,
-        total_choline: 0,
-        total_vitamin_D: 0,
-        total_vitamin_E: 0,
-        total_vitamin_K: 0*/
     };
 
 
@@ -105,8 +91,6 @@ export default class GetNutritionalData extends Component{
         .filter(({ 1: v }) => v === 0)
         .map(([k]) => k);
 
-        // ------------------------------------------------------------------------
-
         // Get deficient vitamins
         if (this.sex === "Male"){
             for (var k = 0; k < vitamin_keys.length; k++) {
@@ -133,19 +117,6 @@ export default class GetNutritionalData extends Component{
         // HERE HANDLE THE OPTION OF ONLY CHECKING FOR WHAT LABELS REQUIRE
         // ONLY CHECK IF MISSING_VITMAINS INCLUDES THOSE 
 
-        if (this.checkAll === 0){
-            if (missing_vitamins.includes('vitamin_A')){
-                
-            }
-
-        }
-        else{
-            //CHECK FOR ALL 
-        }
-
-
-
-        //this.setState({total_carbs: this.state.total_carbs + carbs, total_protein: this.state.total_protein + protein, total_fat: this.state.total_fat + fat});
         this.setState({loading: false});
     }
 
@@ -157,9 +128,10 @@ render(){
                 <div>Loading....</div>
             ) : (
                 <div>
-                    <ul>
-                        <li>Biotin: {this.state.total_biotin}</li>
-                    </ul>
+                    <Recommendations
+                    missing_vitamins={missing_vitamins}
+                    checkAll={checkAll}
+                    />
                 </div>
             )}
         </div>
