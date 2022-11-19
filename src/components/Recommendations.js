@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, DropdownList} from "react";
 
 
 export default class Recommendations extends Component{
@@ -23,16 +23,17 @@ export default class Recommendations extends Component{
     render() {
         return(
             <div>
-                {this.missing_vitamins.map((vitamin) => (
+                {console.log("Missing in Recs: "+this.props.missing_vitamins)}
+                {this.props.missing_vitamins && this.props.missing_vitamins.map((vitamin) => (
                     <div>
                         {this.checkAll === 0 ? (
-                            this.state.food_sources[vitamin].map((food) => { 
-                                return <DropdownList data={food} defaultValue={vitamin}/>;
+                            this.state.food_sources[vitamin] && this.state.food_sources[vitamin].map((food, i) => { 
+                                return <DropdownList data={food[i]} defaultValue={vitamin} key={i}/>;
                                 })
                         ) : (
-                            (this.state.food_sources.includes(vitamin) ? 
-                                this.state.food_sources[vitamin].map((food) => { 
-                                    return <DropdownList data={food} defaultValue={vitamin}/>;
+                            (this.state.requiredVitamins.includes(vitamin) ? 
+                            this.state.food_sources[vitamin] && this.state.food_sources[vitamin].map((food, i) => { 
+                                    return <DropdownList data={food[i]} defaultValue={vitamin} key={i}/>;
                                 }) :
                                     null)
                         )}

@@ -5,7 +5,9 @@ import Recommendations from "./Recommendations";
 export default class GetNutritionalData extends Component{
 
     state={
-        loading: true
+        loading: true,
+        checkedAll: this.props.checkedAll,
+        missing_vitamins: []
     };
 
 
@@ -76,6 +78,7 @@ export default class GetNutritionalData extends Component{
             // check if a response returned
             if (response.ok) {
                 var data = await response.json();
+                console.log("API response:");
                 console.log(data);
                 // Add all vitamins 
                 addVitamins(data, vit_query_list);
@@ -87,18 +90,18 @@ export default class GetNutritionalData extends Component{
 
 
         // Get missing vitamins (vitaminS with value 0)
-        let missing_vitamins = [...vitamin_values.entries()]
+        this.state.missing_vitamins = [...vitamin_values.entries()]
         .filter(({ 1: v }) => v === 0)
         .map(([k]) => k);
 
         // Get deficient vitamins
-        if (this.sex === "Male"){
+        if (this.props.sex === "Male"){
             for (var k = 0; k < vitamin_keys.length; k++) {
                 //get vitamin value from map
                 //compare to recommended value
                 if (vitamin_values.get(vitamin_keys[k] < male_rec_values_mcg[k])) {
                     // if its below, add to missing_vitamins
-                    missing_vitamins.push(vitamin_keys[k]);
+                    this.state.missing_vitamins.push(vitamin_keys[k]);
                 }
             }
         }
@@ -107,17 +110,16 @@ export default class GetNutritionalData extends Component{
             for (var s = 0; s < vitamin_keys.length; s++) {
                 if (vitamin_values.get(vitamin_keys[s] < female_rec_values_mcg[s])) {
                     // if its below, add to missing_vitamins
-                    missing_vitamins.push(vitamin_keys[s]);
+                    this.state.missing_vitamins.push(vitamin_keys[s]);
                 }
             }
         }
 
-
-        // Recommendations
-        // HERE HANDLE THE OPTION OF ONLY CHECKING FOR WHAT LABELS REQUIRE
-        // ONLY CHECK IF MISSING_VITMAINS INCLUDES THOSE 
-
         this.setState({loading: false});
+
+        this.state.missing_vitamins.map((v)=>(
+            console.log("Missing vit:" + v)
+        ));
     }
 
 
@@ -128,9 +130,11 @@ render(){
                 <div>Loading....</div>
             ) : (
                 <div>
+                    {console.log("Checked in Display Element: "+this.state.checkedAll)}
+                    {console.log("Missing in Display Element: "+this.state.missing_vitamins)}
                     <Recommendations
-                    missing_vitamins={missing_vitamins}
-                    checkAll={checkAll}
+                    missing_vitamins={this.state.missing_vitamins}
+                    checkAll={this.state.checkedAll}
                     />
                 </div>
             )}

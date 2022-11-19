@@ -1,7 +1,7 @@
 import React, { Component} from "react";
 import ScanditBarcodeScanner from "scandit-sdk-react";
 
-import { Switch } from "@material-ui/core";
+import { Switch, makeStyles, Button } from "@material-ui/core";
 import {
   BarcodePicker,
   Camera,
@@ -21,7 +21,7 @@ class Demo extends Component {
   scannedBarcodes = [];
   shouldShowNutrients = false;
   sex = "Female";
-  checkAll = 0;
+  checkAll = 0; // default is off 
 
   constructor(props) {
     super(props);
@@ -97,7 +97,6 @@ class Demo extends Component {
             this.scannedBarcodes.push(scanResult.barcodes[0].data);
             console.log(this.scannedBarcodes);
           }}
-
           // eslint-disable-next-line no-console
           onScanError={console.error}
 
@@ -176,15 +175,19 @@ class Demo extends Component {
     );
 
     const startButton = (
-      <button
+      <Button
         onClick={() => this.setState({ shouldShowScannerComponent: true, paused: false, accessCamera: true })}
         disabled={this.state.shouldShowScannerComponent || !this.state.paused}
+        variant="contained"
+        sx={{
+          borderRadius: 70
+        }}
       >
         Start Scanning
-      </button>
+      </Button>
     );
     const stopButton = (
-      <button
+      <Button
         onClick={() => {
           if (this.scannedBarcodes.length !== 0) {
             this.shouldShowNutrients = true;
@@ -192,9 +195,13 @@ class Demo extends Component {
           this.setState({ paused: true, shouldShowScannerComponent: false, scannerReady: false});
         }}
         disabled={!this.state.shouldShowScannerComponent || this.state.paused}
+        variant="contained"
+        sx={{
+          borderRadius: 50
+        }}
       >
         Done Scanning
-      </button>
+      </Button>
     );
     
     
@@ -208,12 +215,15 @@ class Demo extends Component {
         {stopButton}
         {scanner}
 
+        {console.log("Checked in barcodeElement: " + this.checkAll)}
+
+
         {this.shouldShowNutrients ? (
         <div>
           <GetNutritionalData
             barcodeArray={this.scannedBarcodes}
             sex={this.sex}
-            checkAll={this.checkAll}
+            checkedAll={this.checkAll}
           />
         </div>) : null}
 
