@@ -5,7 +5,9 @@ const useStyles = makeStyles(theme => ({
     typo: {
         flexGrow: 1,
         textAlign: "center",
-        color: "#4fc3f7"
+        color: "#38b6ff",
+        fontSize: 40,
+        elevation: 0
       }
   }));
   
@@ -13,7 +15,7 @@ export default function Header() {
     const classes = useStyles();
 
     return (
-        <AppBar color="white" position="sticky">
+        <AppBar color="transparent" position="sticky" elevation={0}>
             <Toolbar>
                 <Typography
                     className={classes.typo}

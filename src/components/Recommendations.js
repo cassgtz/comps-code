@@ -1,4 +1,5 @@
 import React, {Component, DropdownList} from "react";
+import FoodDropDown from "./FoodDropDown";
 
 
 export default class Recommendations extends Component{
@@ -23,24 +24,33 @@ export default class Recommendations extends Component{
     render() {
         return(
             <div>
+
                 {console.log("Missing in Recs: "+this.props.missing_vitamins)}
-                {this.props.missing_vitamins && this.props.missing_vitamins.map((vitamin) => (
+
+                {this.props.missing_vitamins && this.props.missing_vitamins.map((vitamins) => (
                     <div>
-                        {this.checkAll === 0 ? (
+                        {console.log("Recs recieved missing_vitamins")}
+                        {this.props.checkAll !== 0 ? (
+                            <FoodDropDown vitamin={vitamins} food_sources={this.state.food_sources[vitamins]}/>
+                            /*
                             this.state.food_sources[vitamin] && this.state.food_sources[vitamin].map((food, i) => { 
-                                return <DropdownList data={food[i]} defaultValue={vitamin} key={i}/>;
-                                })
+                                return <div><DropdownList data={food} defaultValue={vitamin} key={food}/></div>;
+                                })*/
                         ) : (
-                            (this.state.requiredVitamins.includes(vitamin) ? 
+
+                            (this.state.requiredVitamins.includes(vitamins) ? 
+                            <FoodDropDown vitamin={vitamins} food_sources={this.state.food_sources[vitamins]}/>
+                            /*
                             this.state.food_sources[vitamin] && this.state.food_sources[vitamin].map((food, i) => { 
-                                    return <DropdownList data={food[i]} defaultValue={vitamin} key={i}/>;
-                                }) :
+                                    return <div><DropdownList data={food} defaultValue={vitamin} key={food}/></div>;
+                                }*/
+                                 :
                                     null)
                         )}
                     </div>
                 ))}
+
             </div>
         );
     }
-
 }

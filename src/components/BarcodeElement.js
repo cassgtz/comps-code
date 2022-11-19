@@ -12,7 +12,6 @@ import {
 } from "scandit-sdk";
 import GetNutritionalData from "./DisplayNutrients";
 
-
 // Barcode scanner set up taken from scandit-sdk-react Demo
 
 class Demo extends Component {
@@ -27,6 +26,7 @@ class Demo extends Component {
     super(props);
     this.state = {
       shouldShowScannerComponent: false,
+      style: {width: '0.5px', height: '0.5px'},
       paused: true,
       accessCamera: false,
       cameras: [],
@@ -179,11 +179,18 @@ class Demo extends Component {
         onClick={() => this.setState({ shouldShowScannerComponent: true, paused: false, accessCamera: true })}
         disabled={this.state.shouldShowScannerComponent || !this.state.paused}
         variant="contained"
-        sx={{
-          borderRadius: 70
+        style={{
+          color: "white",
+          border: 'none',
+          borderRadius: '70px',
+          backgroundColor: "#38b6ff",
+          padding: '17px',
+          paddingLeft: '50px',
+          paddingRight: '50px',
+          fontSize: '12px'
         }}
       >
-        Start Scanning
+        Scan Items
       </Button>
     );
     const stopButton = (
@@ -196,11 +203,18 @@ class Demo extends Component {
         }}
         disabled={!this.state.shouldShowScannerComponent || this.state.paused}
         variant="contained"
-        sx={{
-          borderRadius: 50
+        style={{
+          color: "white",
+          border: 'none',
+          borderRadius: '70px',
+          backgroundColor: "#38b6ff",
+          padding: '17px',
+          paddingLeft: '50px',
+          paddingRight: '50px',
+          fontSize: '12px'
         }}
       >
-        Done Scanning
+        Done
       </Button>
     );
     
@@ -208,25 +222,47 @@ class Demo extends Component {
 
     return (
       <div>
-        {checkAllSwitch}
-        <div>{sexSelection}</div>
-        <p>Barcode scanner state: {this.scannerState()}</p>
-        {startButton}
-        {stopButton}
-        {scanner}
+        {this.shouldShowNutrients === false ? 
+            <div>
+            {this.state.shouldShowScannerComponent !== true ?
 
-        {console.log("Checked in barcodeElement: " + this.checkAll)}
+              <div style={{backgroundColor: "white", borderRadius: "30px", padding: "30px"}}>
+                {checkAllSwitch}
+                <div>{sexSelection}</div>
+              </div>
+              : null }
+              
+            <div style={{ display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          overflow: 'hidden', boxSizing: 'content-box'}}>
+                {scanner}
+            </div>
+
+            <div style={{ display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                paddingTop: '40px'}}>
+            {this.state.shouldShowScannerComponent !== true ? startButton : stopButton}</div>
+            </div>
 
 
-        {this.shouldShowNutrients ? (
-        <div>
-          <GetNutritionalData
-            barcodeArray={this.scannedBarcodes}
-            sex={this.sex}
-            checkedAll={this.checkAll}
-          />
-        </div>) : null}
 
+            
+            
+            : 
+
+
+
+            <div>
+              <GetNutritionalData
+                barcodeArray={this.scannedBarcodes}
+                sex={this.sex}
+                checkedAll={this.checkAll}
+              />
+            </div>
+
+            }
       </div>
     );
   }
