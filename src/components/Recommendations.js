@@ -1,55 +1,439 @@
-import React, {Component, DropdownList} from "react";
-import FoodDropDown from "./FoodDropDown";
+import React, {Component} from "react";
+import ListContainer from "./ListContainer";
 
 
 export default class Recommendations extends Component{
 
+
     state = {
-        food_sources: {
-          vitamin_A: ["Beef liver", "Sweet potato (with skin)", "Spinach", "Pumpkin pie", "Carrots", "Atlantic herring", "Soft serve vanilla ice cream"],
-          thiamin: ["White rice", "Breakfast cereals", "Egg noodles", "Pork chop (bone-in)", "Trout", "Black beans", "English muffin (plain)", "Mussels (blue)"],
-          riboflavin: ["Beef liver", "Breakfast cereals", "Instant Oats", "Yogurt (fat free)", "Milk (2% fat)", "Beef - tenderloin steak (trimmed of fat)", "Clams", "Almonds", "Swiss cheese"],
-          niacin: ["Beef liver", "Chicken Breast", "Marinara sauce", "Turkey breast", "Tuna (canned in water)", "Pork (tenderloin)", "Beef (90% lean)", "Brown rice", "Pesnuts", "Breakfast cereals"],
-          B6: ["Chickpeas", "Beef liver", "Tuna (yellowfin)", "Salmon (sockeye)", "Chicken breast", "Breakfast cereals", "Potatoes", "Turkey (meat only)", "Bananas", "Marinara sauce"],
-          B12: ["Beef liver", "Clams", "Tuna (bluefin)", "Nutritional yeast (fortified)", "Salmon (Atlantic)", "Beef (85% lean)", "Milk (2% fat)", "Yogurt (fat free)", "Breakfast cereals"],
-          vitamin_C: ["Red peppers", "Orange juice", "Oranges", "Grapefruit juice", "Kiwifruit", "Green pepper", "Broccoli", "Strawberries", "Brussels sprouts", "Grapefruit", "Tomato juice", "Cantaloupe", "Cabbage", "Cauliflower"],
-          vitamin_D: ["Cod liver oil", "Trout (rainbow)", "Salmon (sockeye)", "Mushrooms (white)"],
-          vitamin_E: ["Wheat germ oil", "Sunflower seeds", "Almonds", "Sunflower oil", "Safflower oil", "Hazelnuts"],
-          B9: ["Beef liver", "Spinach", "Black-eyed peas", "Breakfast cereals", "White rice", "Asparagus", "Brussels"]
-        },
-        requiredVitamins: ["vitamin_D"]
+        foodSources: [
+            {
+            "id": 1,
+            "title": "Vitamin A",
+            "foods": [
+                {
+                    "food": "Beef liver",
+                    "id": 11
+                },
+                {
+                    "food": "Sweet potato (with skin)",
+                    "id": 12
+                },
+                {
+                    "food": "Spinach",
+                    "id": 13
+                },
+                {
+                    "food": "Pumpkin pie",
+                    "id": 14
+                },
+                {
+                    "food": "Carrots",
+                    "id": 15
+                },
+                {
+                    "food": "Atlantic herring",
+                    "id": 16
+                },
+                {
+                    "food": "Soft serve vanilla ice cream",
+                    "id": 17
+                }
+                ]
+            },
+            {
+            "id": 2,
+            "title": "Thiamin",
+            "foods": [
+                {
+                    "food": "White rice",
+                    "id": 18
+                },
+                {
+                    "food": "Breakfast cereals",
+                    "id": 19
+                },
+                {
+                    "food": "Egg noodles",
+                    "id": 20
+                },
+                {
+                    "food": "Pork chop (bone-in)",
+                    "id": 21
+                },
+                {
+                    "food": "Trout",
+                    "id": 22
+                },
+                {
+                    "food": "Black beans",
+                    "id": 23
+                },
+                {
+                    "food": "English muffin (plain)",
+                    "id": 24
+                },
+                {
+                    "food": "Mussels (blue)",
+                    "id": 25
+                }
+                ]
+            },
+            {
+            "id": 3,
+            "title": "Riboflavin",
+            "foods": [
+                {
+                    "food": "Beef liver",
+                    "id": 26
+                },
+                {
+                    "food": "Breakfast cereals",
+                     "id": 27
+                },
+                {
+                        "food": "Instant Oats",
+                        "id": 28
+                },
+                {
+                        "food": "Yogurt (fat free)",
+                        "id": 29
+                },
+                {
+                        "food": "Milk (2% fat)",
+                        "id": 30
+                },
+                {
+                        "food": "Beef tenderloin steak (trimmed of fat)",
+                        "id": 31
+                },
+                {
+                        "food": "Clams",
+                        "id": 32
+                },
+                {
+                        "food": "Almonds",
+                        "id": 33
+                },
+                {
+                        "food": "Swiss cheese",
+                        "id": 34
+                }
+                ]
+            },
+            {
+                "id": 4,
+                "title": "Niacin",
+                "foods": [
+                    {
+                        "food": "Beef liver",
+                        "id": 35
+                    },
+                    {
+                        "food": "Chicken Breast",
+                         "id": 36
+                    },
+                    {
+                            "food": "Marinara sauce",
+                            "id": 37
+                    },
+                    {
+                            "food": "Turkey breast",
+                            "id": 38
+                    },
+                    {
+                            "food": "Tuna (canned in water)",
+                            "id": 39
+                    },
+                    {
+                            "food": "Pork (tenderloin)",
+                            "id": 40
+                    },
+                    {
+                            "food": "Beef (90% lean)",
+                            "id": 41
+                    },
+                    {
+                            "food": "Brown rice", 
+                            "id": 42
+                    },
+                    {
+                            "food": "Peanuts",
+                            "id": 43
+                    },
+                    {
+                        "food": "Breakfast cereals",
+                        "id": 44
+                }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "title": "Vitamin B6",
+                    "foods": [
+                        {
+                            "food": "Chickpeas",
+                            "id": 45
+                        },
+                        {
+                            "food": "Beef liver",
+                             "id": 46
+                        },
+                        {
+                                "food": "Tuna (yellowfin)",
+                                "id": 47
+                        },
+                        {
+                                "food": "Salmon (sockeye)",
+                                "id": 48
+                        },
+                        {
+                                "food": "Chicken breast",
+                                "id": 49
+                        },
+                        {
+                                "food": "Breakfast cereals",
+                                "id": 50
+                        },
+                        {
+                                "food": "Potatoes",
+                                "id": 51
+                        },
+                        {
+                                "food": "Turkey (meat only)", 
+                                "id": 52
+                        },
+                        {
+                                "food": "Bananas",
+                                "id": 53
+                        },
+                        {
+                            "food": "Marinara sauce",
+                            "id": 54
+                    }
+                        ]
+                    },
+                    {
+                        "id": 6,
+                        "title": "Vitamin B12",
+                        "foods": [
+                            {
+                                "food": "Beef liver", 
+                                "id": 55
+                            },
+                            {
+                                "food": "Clams",
+                                 "id": 56
+                            },
+                            {
+                                    "food": "Tuna (bluefin)",
+                                    "id": 57
+                            },
+                            {
+                                    "food": "Nutritional yeast (fortified)",
+                                    "id": 58
+                            },
+                            {
+                                    "food": "Salmon (Atlantic)",
+                                    "id": 59
+                            },
+                            {
+                                    "food": "Beef (85% lean)",
+                                    "id": 60
+                            },
+                            {
+                                    "food": "Milk (2% fat)",
+                                    "id": 61
+                            },
+                            {
+                                    "food": "Yogurt (fat free)",
+                                    "id": 62
+                            },
+                            {
+                                    "food": "Breakfast cereals",
+                                    "id": 63
+                            }
+                            ]
+                        },
+                        {
+                            "id": 7,
+                            "title": "Vitamin C",
+                            "foods": [
+                                {
+                                    "food": "Red peppers",
+                                    "id": 64
+                                },
+                                {
+                                    "food": "Orange juice",
+                                     "id": 65
+                                },
+                                {
+                                        "food": "Oranges",
+                                        "id": 66
+                                },
+                                {
+                                        "food": "Grapefruit juice",
+                                        "id": 67
+                                },
+                                {
+                                        "food": "Kiwifruit",
+                                        "id": 68
+                                },
+                                {
+                                        "food": "Green pepper",
+                                        "id": 69
+                                },
+                                {
+                                        "food": "Broccoli",
+                                        "id": 70
+                                },
+                                {
+                                        "food": "Strawberries",
+                                        "id": 71
+                                },
+                                {
+                                        "food": "Brussels sprouts",
+                                        "id": 72
+                                },
+                                {
+                                    "food": "Grapefruit",
+                                    "id": 73
+                            },
+                            {
+                                "food": "Tomato juice",
+                                "id": 74
+                        },
+                        {
+                            "food": "Cantaloupe",
+                            "id": 75
+                    },
+                    {
+                        "food": "Cabbage",
+                        "id": 76
+                },
+                {
+                    "food": "Cauliflower",
+                    "id": 77
+            }
+                                ]
+                            },
+                            {
+                                "id": 8,
+                                "title": "Vitamin D",
+                                "foods": [
+                                    {
+                                        "food": "Cod liver oil",
+                                        "id": 78
+                                    },
+                                    {
+                                        "food": "Trout (rainbow)",
+                                         "id": 79
+                                    },
+                                    {
+                                            "food": "Salmon (sockeye)",
+                                            "id": 80
+                                    },
+                                    {
+                                            "food": "Mushrooms (white)",
+                                            "id": 81
+                                    }
+                                    ]
+                                },
+                                {
+                                    "id": 9,
+                                    "title": "Vitamin E",
+                                    "foods": [
+                                        {
+                                            "food": "Wheat germ oil",
+                                            "id": 82
+                                        },
+                                        {
+                                            "food": "Sunflower seeds",
+                                             "id": 83
+                                        },
+                                        {
+                                                "food": "Almonds",
+                                                "id": 84
+                                        },
+                                        {
+                                                "food": "Sunflower oil",
+                                                "id": 85
+                                        },
+                                        {
+                                            "food": "Safflower oil", 
+                                            "id": 86
+                                    },
+                                    {
+                                        "food":  "Hazelnuts",
+                                        "id": 87
+                                }
+                                        ]
+                                    },
+                            {
+                                "id": 10,
+                                "title": "Vitamin B9",
+                                "foods": [
+                                    {
+                                        "food": "Beef liver",
+                                        "id": 88
+                                    },
+                                    {
+                                        "food": "Spinach",
+                                         "id": 89
+                                    },
+                                    {
+                                            "food": "Black-eyed peas",
+                                            "id": 90
+                                    },
+                                    {
+                                            "food": "Breakfast cereals",
+                                            "id": 91
+                                    },
+                                    {
+                                        "food": "White rice",
+                                        "id": 92
+                                },
+                                {
+                                    "food": "Asparagus",
+                                    "id": 93
+                            },
+                            {
+                                "food": "Brussels",
+                                "id": 94
+                        }
+                                    ]
+                                },
+                                
+        ]
     };
+
+    
+    
 
 
     render() {
         return(
             <div>
-
-                {console.log("Missing in Recs: "+this.props.missing_vitamins)}
-
-                {this.props.missing_vitamins && this.props.missing_vitamins.map((vitamins) => (
-                    <div>
-                        {console.log("Recs recieved missing_vitamins")}
-                        {this.props.checkAll !== 0 ? (
-                            <FoodDropDown vitamin={vitamins} food_sources={this.state.food_sources[vitamins]}/>
-                            /*
-                            this.state.food_sources[vitamin] && this.state.food_sources[vitamin].map((food, i) => { 
-                                return <div><DropdownList data={food} defaultValue={vitamin} key={food}/></div>;
-                                })*/
-                        ) : (
-
-                            (this.state.requiredVitamins.includes(vitamins) ? 
-                            <FoodDropDown vitamin={vitamins} food_sources={this.state.food_sources[vitamins]}/>
-                            /*
-                            this.state.food_sources[vitamin] && this.state.food_sources[vitamin].map((food, i) => { 
-                                    return <div><DropdownList data={food} defaultValue={vitamin} key={food}/></div>;
-                                }*/
-                                 :
-                                    null)
-                        )}
-                    </div>
-                ))}
-
+                {(this.props.checkAll !== 0 ? 
+                    (this.props.missing_vitamins.length !== 0) ?
+                         <ListContainer
+                            data={this.state.foodSources}
+                            missing_vitamins={this.props.missing_vitamins}
+                            />
+                        :
+                        (<p>You met all vitamins!</p>)
+                    :
+                    (
+                        (this.props.filtered_missing_vitamins.length !== 0 ?
+                            <ListContainer
+                            data={this.state.foodSources}
+                            missing_vitamins={this.props.filtered_missing_vitamins}
+                            />
+                            :
+                            <p>You met all vitamins!</p>
+                        )
+                    )
+                )}
             </div>
         );
     }

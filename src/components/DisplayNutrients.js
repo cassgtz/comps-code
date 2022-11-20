@@ -7,7 +7,8 @@ export default class GetNutritionalData extends Component{
     state={
         loading: true,
         checkedAll: this.props.checkedAll,
-        missing_vitamins: []
+        missing_vitamins: [],
+        filtered_missing_vitamins: [],
     };
 
 
@@ -32,7 +33,7 @@ export default class GetNutritionalData extends Component{
         var vit_query_list = ['VITA_RAE', 'THIA', 'RIBF', 'NIA', 'VITB6A', 'VITB12', 'VITC', 'VITD', 'TOCPHA', 'VITK1', 'FOLAC', 'FOLDFE', 'FOLFD'];
         // create a dictionary of vitamin (key) & their quantities (value)
         var vitamin_values = new Map();
-        var vitamin_keys = ["vitamin_A", "thiamin", "riboflavin", "niacin", "B6", "B12", "vitamin_C", "vitamin_D", "vitamin_E", "vitamin_K", "B9"];
+        var vitamin_keys = ["Vitamin A", "Thiamin", "Riboflavin", "Niacin", "Vitamin B6", "Vitamin B12", "Vitamin C", "Vitamin D", "Vitamin E", "Vitamin K", "Vitamin B9"];
         var male_rec_values_mcg = [900, 1200, 1300, 1600, 1300, 2.4, 90000, 15, 1500, 120, 400];
         var female_rec_values_mcg = [700, 1100, 1100, 1400, 1300, 2.4, 75000, 15, 1500, 90, 400];
         // handle nulls in queries -> initialize everything to 0
@@ -115,11 +116,13 @@ export default class GetNutritionalData extends Component{
             }
         }
 
-        this.setState({loading: false});
-
         this.state.missing_vitamins.map((v)=>(
             console.log("Missing vit:" + v)
         ));
+        const requiredVitamins = ["Vitamin D"];
+        this.state.filtered_missing_vitamins = this.state.missing_vitamins.filter(missing => requiredVitamins.includes(missing));
+        console.log("Filteres mssing vit: " + this.state.filtered_missing_vitamins);
+        this.setState({loading: false});
     }
 
 
@@ -127,7 +130,7 @@ render(){
     return (
         <div>
             {this.state.loading ? (
-                <div>Loading....</div>
+                <div><p style={{color:'white'}}>Loading....</p></div>
             ) : (
                 <div>
                     {console.log("Checked in Display Element: "+this.state.checkedAll)}
@@ -135,6 +138,7 @@ render(){
                     <Recommendations
                     missing_vitamins={this.state.missing_vitamins}
                     checkAll={this.state.checkedAll}
+                    filtered_missing_vitamins={this.state.filtered_missing_vitamins}
                     />
                 </div>
             )}

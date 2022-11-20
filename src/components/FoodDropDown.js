@@ -12,10 +12,10 @@ export default class Dropdown extends Component {
              <select>
                <option hidden>{this.props.vitamin}</option>
                   {this.props.foodSources && this.props.foodSources.map(food => {
-                    console.log("Mapping food sources");
+                    console.log("Mapping food sources: " + food);
                     return (
-                      <option key={food} value={food}>
-                        {food}
+                      <option key={food.id} value={food.food}>
+                        {food.food}
                       </option>
                     );
                   })}

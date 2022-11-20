@@ -1,7 +1,7 @@
 import React, { Component} from "react";
 import ScanditBarcodeScanner from "scandit-sdk-react";
 
-import { Switch, makeStyles, Button } from "@material-ui/core";
+import { Switch, Button } from "@material-ui/core";
 import {
   BarcodePicker,
   Camera,
@@ -234,8 +234,7 @@ class Demo extends Component {
               
             <div style={{ display: 'flex',
                           alignItems: 'center',
-                          justifyContent: 'center',
-                          overflow: 'hidden', boxSizing: 'content-box'}}>
+                          justifyContent: 'center',boxSizing: 'content-box'}}>
                 {scanner}
             </div>
 
