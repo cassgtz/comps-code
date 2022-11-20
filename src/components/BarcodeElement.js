@@ -1,7 +1,7 @@
 import React, { Component} from "react";
 import ScanditBarcodeScanner from "scandit-sdk-react";
 
-import { Switch, Button } from "@material-ui/core";
+import { Switch, Button, styled, alpha } from "@material-ui/core";
 import {
   BarcodePicker,
   Camera,
@@ -11,6 +11,8 @@ import {
   SingleImageModeSettings,
 } from "scandit-sdk";
 import GetNutritionalData from "./DisplayNutrients";
+
+
 
 // Barcode scanner set up taken from scandit-sdk-react Demo
 
@@ -135,10 +137,24 @@ class Demo extends Component {
   render() {
     const scanner = this.getScanner();
 
+
+    const BlueSwitch = styled(Switch)(({ theme }) => ({
+      '& .MuiSwitch-switchBase.Mui-checked': {
+        color: "#38b6ff",
+        '&:hover': {
+          backgroundColor: alpha("#38b6ff", theme.palette.action.hoverOpacity),
+        },
+      },
+      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+        backgroundColor: "#38b6ff",
+      },
+    }));
+
     const checkAllSwitch = (
       <span style={{ margin: "15px" }}>
-          <Switch
+          <BlueSwitch
               onChange={ ()=>{this.checkAll === 0 ? this.checkAll = 1 : this.checkAll = 0; console.log(this.checkAll);}}
+              sx ={{color: "#38b6ff"}}
           />
           Check for ALL vitamins
       </span>

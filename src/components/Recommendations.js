@@ -413,7 +413,7 @@ export default class Recommendations extends Component{
 
     render() {
         return(
-            <div>
+            <div style={{height: '70vh'}}>
                 {(this.props.checkAll !== 0 ? 
                     (this.props.missing_vitamins.length !== 0) ?
                          <ListContainer

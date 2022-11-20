@@ -12,7 +12,8 @@ function Page(){
             <div style={{ backgroundColor: "#c8df43"}}>
                 <div style={{ display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'}}>
+                            justifyContent: 'center',
+                            height: '100vh'}}>
                     <div><Demo style={{ paddingTop: '100px', boxSizing: 'content-box' }}/></div>
                 </div>
             </div>
