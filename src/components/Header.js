@@ -15,7 +15,7 @@ export default function Header() {
     const classes = useStyles();
 
     return (
-        <AppBar color="transparent" position="sticky" elevation={0}>
+        <AppBar color={'inherit'} position="sticky" elevation={0}>
             <Toolbar>
                 <Typography
                     className={classes.typo}

@@ -16,6 +16,6 @@ const ListItem = React.memo(({item}) => {
 });
 
 ListItem.propTypes = {
-    item: PropTypes.object.isRequired
+    item: PropTypes.string.isRequired
 };
 export default ListItem;

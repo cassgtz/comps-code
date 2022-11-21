@@ -7,14 +7,16 @@ function Page(){
 
    
     return(
-        <div>
+        <div style={{height:'100vh', backgroundColor: "#c8df43"}}>
             <div><Header/></div>
-            <div style={{ backgroundColor: "#c8df43"}}>
+            <div>
                 <div style={{ display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            height: '100vh'}}>
-                    <div><Demo style={{ paddingTop: '100px', boxSizing: 'content-box' }}/></div>
+                            paddingTop: '200px',
+                            paddingBottom: '200px',
+                            }}>
+                    <div><Demo style={{boxSizing: 'content-box' }}/></div>
                 </div>
             </div>
         </div>

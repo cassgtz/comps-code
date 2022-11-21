@@ -5,7 +5,7 @@ import {Accordion, AccordionSummary, AccordionDetails, Button} from '@material-u
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import ListItem from './ListItem';
-
+import * as Icon from 'react-feather';
 const styles = {
     list: {
         maxWidth: 600,
@@ -16,7 +16,7 @@ const List = ({list, classes, missing_vitamins}) => {
     //hook to render list only when panel actually expanded
     //This is for each missing vitamin
     const [expanded, setExpanded] = useState(false);
-    const expand = <Button style={{color:'white', border: 'none', borderRadius: '200px', backgroundColor: "#38b6ff"}}>v</Button>
+    const expand = <Button style={{display: 'flex', backgroundColor: "#38b6ff",}}><Icon.ChevronDown color='white'/></Button>
     return (
             (missing_vitamins.includes(list.title) ? 
                         <Accordion className={classes.list} onClick={() => setExpanded(true)}>
