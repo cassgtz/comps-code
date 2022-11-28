@@ -9,11 +9,12 @@ function Page(){
     return(
         <div style={{height:'100vh', backgroundColor: "#c8df43"}}>
             <div><Header/></div>
+            
             <div>
                 <div style={{ display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            paddingTop: '200px',
+                            paddingTop: '50px',
                             paddingBottom: '200px',
                             }}>
                     <div><Demo style={{boxSizing: 'content-box' }}/></div>

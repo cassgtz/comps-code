@@ -415,7 +415,7 @@ export default class Recommendations extends Component{
         return(
             <div style={{height: '70vh'}}>
                 {(this.props.checkAll !== 0 ? 
-                    (this.props.missing_vitamins.length !== 0) ?
+                    (this.props.missing_vitamins.length !== 0) ? 
                          <ListContainer
                             data={this.state.foodSources}
                             missing_vitamins={this.props.missing_vitamins}
@@ -425,10 +425,13 @@ export default class Recommendations extends Component{
                     :
                     (
                         (this.props.filtered_missing_vitamins.length !== 0 ?
+                            <div>
+                            <p style={{width: '350px', display:'flex', textAlign:'center', color: "white", fontSize: '15px', fontFamily: 'helvetica'}}>Here are the micronutrients needed to meet your recommended intake value. Click on each to see recommended food sources.</p>
                             <ListContainer
                             data={this.state.foodSources}
                             missing_vitamins={this.props.filtered_missing_vitamins}
                             />
+                            </div>
                             :
                             <p>You met all vitamins!</p>
                         )
