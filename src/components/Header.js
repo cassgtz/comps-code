@@ -1,7 +1,12 @@
+/**
+ 
+    This component is the GroceryCheck+ header diplayed at the top of the webpage.
+
+ */
 import React from "react";
 import { AppBar, Toolbar, Typography, makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
     typo: {
         flexGrow: 1,
         textAlign: "center",
@@ -9,17 +14,15 @@ const useStyles = makeStyles(theme => ({
         fontSize: 40,
         elevation: 0
       }
-  }));
+  });
   
 export default function Header() {
     const classes = useStyles();
 
     return (
-        <AppBar color={'inherit'} position="sticky" elevation={0}>
+        <AppBar color={'inherit'} position="fixed" elevation={0}>
             <Toolbar>
-                <Typography
-                    className={classes.typo}
-                >
+                <Typography className={classes.typo}>
                     GroceryCheck+
                 </Typography>
             </Toolbar>

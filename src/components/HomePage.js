@@ -1,6 +1,5 @@
 import React, { Component} from "react";
 import ScanditBarcodeScanner from "scandit-sdk-react";
-
 import { Switch, Button, styled, alpha } from "@material-ui/core";
 import {
   BarcodePicker,
@@ -12,17 +11,17 @@ import {
 } from "scandit-sdk";
 import GetNutritionalData from "./DisplayNutrients";
 
-
-
 // Barcode scanner set up taken from scandit-sdk-react Demo
+class HomePage extends Component {
+  // Input variables 
+  
+  shouldShowNutrients = false; // to show output results
+  sex = "Female"; // Sex default
+  checkAll = 0; // Check for all vitamins? -- default is off 
 
-class Demo extends Component {
-
+  // Barcode Scanner variables
   licenseKey = "AYUivAWjJzC6JurcKQWiRq08XVOgArB9gkGHRLFtek/cEkA/zFyySRx1F+1WbzdmrRmoJpB/pCvUJUSOPUQ36pkH8LSQUv+nwh9x9D9liFMYU3WeAg/Cs34rHmRfML+ufxsvlouc3h2KXyOTxqtMbfokTV26rUSAIxu/QFBYnDsyvoTgIPC0Muj4TXkAfioaN3YxTQBT+6Ng80pJnqGYlkqYHRZk1qf2fC505M4RgHVN4FbT2xB/rMjRdfxhTbtF49yYcB8m6gDkv2tXmRoa4VxYijCKGTq3c4d/80fw0Ck1WwpBh62/oG7HyBqOG0yUayQqOpihzOFevU7SBhFM8ZulJCZcdbtqkq8uxCktzxarf490jkiRzzoGOe++fsFWBqPlcf2g+Geull2lyUE93WxbhOuxFs89lmaemn5K9SSdOTl0b33zzM4Nib0OxCVbRjKXeO2Bfb1Yexx/AERos6Li2+FQcRLbYNhCkl6AEPlq6srs8KnbeXwENv1HoQloCfZ5rKAID+CgwczpLsmPPYmGwxD5ToyVmQtZRLu7e4eKDX819drAA4JM96byPXfcTgM/6pkigbtDhUynMWD+FuG+yJ/bJB5mGPEbVBknO511+kw8I53aJ3B7YIVQyX6EwL02crj9Mkx2VSRiN42G96ofNTrGsCQGhotth/97JR/28aXYqHIjRrKWi01wT3WqUhQuINuRtcI+xcr0uRhKKm3LtahL6nxQJNNPZ1SjwUoq3kyHXAGdalKDqzvVgGLVCTY8EAoyF0XMOODOAW4OS03qqnnkiF62wSs15/WQ/zwfLxY=";
   scannedBarcodes = [];
-  shouldShowNutrients = false;
-  sex = "Female";
-  checkAll = 0; // default is off 
 
   constructor(props) {
     super(props);
@@ -58,7 +57,6 @@ class Demo extends Component {
         },
       },
     };
-
     CameraAccess.getCameras().then((cameras) => this.setState({ cameras }));
   }
 
@@ -240,16 +238,20 @@ class Demo extends Component {
       <React.Fragment>
         {this.shouldShowNutrients === false ? 
         
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column'}}>
             {this.state.shouldShowScannerComponent !== true ?
             <div>
-              <div style={{justifyContent: 'center', display:'flex', alignItems: 'center', paddingTop: '100px', paddingBottom:'50px'}}><small style={{width: '350px', display:'flex', textAlign:'center', color: "white", fontSize: '20px', fontFamily: 'helvetica'}}>Scan your grocery items to analyze what micronutrients are lacking in your grocery haul</small></div>
+              <div style={{justifyContent: 'center', display:'flex', alignItems: 'center', paddingTop: '50px', paddingBottom:'50px'}}>
+                <small style={{width: '350px', display:'flex', textAlign:'center', color: "white", fontSize: '20px', fontFamily: 'helvetica'}}>Scan your grocery items to analyze what micronutrients are lacking in your grocery haul</small>
+              </div>
             
-              <div style={{backgroundColor: "white", borderRadius: "30px", padding: "30px"}}>
-              {checkAllSwitch}
-                <i style={{width: '270px', display:'flex', textAlign:'center', color: "grey", fontSize: '11px', fontFamily: 'helvetica'}}>"Check for ALL" based on nutrition labels that are only required to show specfic micronutrients indicating a potwntial limitation of accuracy</i>
+              <div >
+                <div style={{backgroundColor: "white", paddingLeft: "10px", paddingRight: "10px", paddingTop: "70px", paddingBottom: "70px"}}>
+                  {checkAllSwitch}
+                  <i style={{width: '270px', display:'flex', textAlign:'center', color: "grey", fontSize: '11px', fontFamily: 'helvetica'}}>"Check for ALL" based on nutrition labels that are only required to show specfic micronutrients indicating a potwntial limitation of accuracy</i>
+                  <div>{sexSelection}</div>
+                </div>
                 
-                <div>{sexSelection}</div>
               </div>
             </div>
               : null }
@@ -263,7 +265,7 @@ class Demo extends Component {
             <div style={{ display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingTop: '40px'}}>
+                                paddingTop: '25px'}}>
             {this.state.shouldShowScannerComponent !== true ? startButton : stopButton}</div>
             </div>
 
@@ -288,4 +290,4 @@ class Demo extends Component {
     );
   }
 }
-export default Demo;
+export default HomePage;

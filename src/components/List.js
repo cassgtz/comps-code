@@ -1,11 +1,19 @@
-import React, {useState} from 'react';
+/**
+ 
+    This component renders the collapsible sublist of recommended food sources for each missing vitamin.
+    The code is based on a collapsible list example from Max R.: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20
+
+ */
+
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MUIList from '@material-ui/core/List';
-import {Accordion, AccordionSummary, AccordionDetails, Button} from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import ListItem from './ListItem';
 import * as Icon from 'react-feather';
+
 const styles = {
     list: {
         maxWidth: 600,
@@ -13,11 +21,12 @@ const styles = {
     }
 };
 const List = ({list, classes, missing_vitamins}) => {
-    //hook to render list only when panel actually expanded
-    //This is for each missing vitamin
-    const [expanded, setExpanded] = useState(false);
-    const expand = <Button style={{display: 'flex', backgroundColor: "#38b6ff",}}><Icon.ChevronDown color='white'/></Button>
+
+    const [expanded, setExpanded] = useState(false); // Hook to render list only when panel is actually expanded
+    const expand = <Icon.ChevronDown color="#38b6ff"/>
+
     return (
+            // only render if the micronutrient is in the list of missing micronutrients
             (missing_vitamins.includes(list.title) ? 
                         <Accordion className={classes.list} onClick={() => setExpanded(true)}>
                         <AccordionSummary expandIcon={expand}>
@@ -39,7 +48,6 @@ const List = ({list, classes, missing_vitamins}) => {
             )
     )
 };
-
 
 List.propTypes = {
     list: PropTypes.object.isRequired,

@@ -1,8 +1,12 @@
+/** 
+
+    This component creates a React Fragrment container for the list of missing micronutrients. 
+    The code is based on a collapsible list example from Max R.: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20 
+
+*/
 
 import React, { Component } from "react";
 import List from "./List";
-// data, 
-              // This creates the container for recommendations
 
 class ListContainer extends Component {
     state = {

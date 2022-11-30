@@ -1,3 +1,9 @@
+/*
+
+    This component renders each micronutrient in the list of missing micronutrients. 
+    The code is based on a collapsible list example from Max R.: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20 
+
+*/
 import React from 'react';
 import PropTypes from 'prop-types';
 import MUIListItem from '@material-ui/core/ListItem';

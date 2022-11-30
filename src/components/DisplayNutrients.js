@@ -116,34 +116,27 @@ export default class GetNutritionalData extends Component{
             }
         }
 
-        this.state.missing_vitamins.map((v)=>(
-            console.log("Missing vit:" + v)
-        ));
         const requiredVitamins = ["Vitamin D"];
         this.state.filtered_missing_vitamins = this.state.missing_vitamins.filter(missing => requiredVitamins.includes(missing));
-        console.log("Filteres mssing vit: " + this.state.filtered_missing_vitamins);
         this.setState({loading: false});
     }
 
 
-render(){
-    return (
-        <div>
-            {this.state.loading ? (
-                <div><p style={{color:'white'}}>Loading....</p></div>
-            ) : (
-                <div>
-                    {console.log("Checked in Display Element: "+this.state.checkedAll)}
-                    {console.log("Missing in Display Element: "+this.state.missing_vitamins)}
-                    <Recommendations
-                    missing_vitamins={this.state.missing_vitamins}
-                    checkAll={this.state.checkedAll}
-                    filtered_missing_vitamins={this.state.filtered_missing_vitamins}
-                    />
-                </div>
-            )}
-        </div>
-    );
-}
-
+    render(){
+        return (
+            <div >
+                {this.state.loading ? (
+                    <div><p style={{color:'white'}}>Loading....</p></div>
+                ) : (
+                    <div>
+                        <Recommendations
+                        missing_vitamins={this.state.missing_vitamins}
+                        checkAll={this.state.checkedAll}
+                        filtered_missing_vitamins={this.state.filtered_missing_vitamins}
+                        />
+                    </div>
+                )}
+            </div>
+        );
+    }
 }
