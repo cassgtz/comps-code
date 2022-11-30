@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import ListContainer from "./ListContainer";
+import {AllVitaminsMetText, DisplayRecommendationsText} from "./Text";
 
 
 export default class Recommendations extends Component{
@@ -417,26 +418,26 @@ export default class Recommendations extends Component{
                 {(this.props.checkAll !== 0 ? 
                     (this.props.missing_vitamins.length !== 0) ? 
                         <div>
-                            <p style={{width: '350px', display:'flex', textAlign:'center', color: "white", fontSize: '15px', fontFamily: 'helvetica'}}>Looks like you havent met your recommended intake for these micronutrients. Click on each to see their food sources.</p>
-                         <ListContainer
+                            <DisplayRecommendationsText/>
+                            <ListContainer
                             data={this.state.foodSources}
                             missing_vitamins={this.props.missing_vitamins}
                             />
                         </div>
                         :
-                        (<p>You met all vitamins!</p>)
+                        (<AllVitaminsMetText/>)
                     :
                     (
                         (this.props.filtered_missing_vitamins.length !== 0 ?
                             <div>
-                            <p style={{width: '350px', display:'flex', textAlign:'center', color: "white", fontSize: '15px', fontFamily: 'helvetica'}}>Looks like you havent met your recommended intake for these micronutrients. Click on each to see their food sources.</p>
+                            <DisplayRecommendationsText/>
                             <ListContainer
                             data={this.state.foodSources}
                             missing_vitamins={this.props.filtered_missing_vitamins}
                             />
                             </div>
                             :
-                            <p>You met all vitamins!</p>
+                            <AllVitaminsMetText/>
                         )
                     )
                 )}

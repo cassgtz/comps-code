@@ -10,6 +10,7 @@ import {
   SingleImageModeSettings,
 } from "scandit-sdk";
 import GetNutritionalData from "./DisplayNutrients";
+import {ToggleExplanation, AppDescription} from "./Text";
 
 // Barcode scanner set up taken from scandit-sdk-react Demo
 class HomePage extends Component {
@@ -241,14 +242,12 @@ class HomePage extends Component {
             <div style={{ display: 'flex', flexDirection: 'column'}}>
             {this.state.shouldShowScannerComponent !== true ?
             <div>
-              <div style={{justifyContent: 'center', display:'flex', alignItems: 'center', paddingTop: '50px', paddingBottom:'50px'}}>
-                <small style={{width: '350px', display:'flex', textAlign:'center', color: "white", fontSize: '20px', fontFamily: 'helvetica'}}>Scan your grocery items to analyze what micronutrients are lacking in your grocery haul</small>
-              </div>
+              <AppDescription/>
             
               <div >
                 <div style={{backgroundColor: "white", paddingLeft: "10px", paddingRight: "10px", paddingTop: "70px", paddingBottom: "70px"}}>
                   {checkAllSwitch}
-                  <i style={{width: '270px', display:'flex', textAlign:'center', color: "grey", fontSize: '11px', fontFamily: 'helvetica'}}>"Check for ALL" based on nutrition labels that are only required to show specfic micronutrients indicating a potwntial limitation of accuracy</i>
+                  <ToggleExplanation/>
                   <div>{sexSelection}</div>
                 </div>
                 
