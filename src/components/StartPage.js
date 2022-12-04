@@ -18,7 +18,7 @@ import {
 } from "scandit-sdk";
 import FetchNutritionalData from "./FetchNutritionalData";
 import {ToggleExplanation, AppDescription} from "./Texts";
-import { BlueSwitch } from "./BlueSwitch";
+import { Switch, styled, alpha } from "@material-ui/core";
 
 export default class StartPage extends Component {
   
@@ -118,6 +118,18 @@ export default class StartPage extends Component {
 
   render() {
     const scanner = this.getScanner();
+
+    const BlueSwitch = styled(Switch)(({ theme }) => ({
+      '& .MuiSwitch-switchBase.Mui-checked': {
+        color: "#38b6ff",
+        '&:hover': {
+          backgroundColor: alpha("#38b6ff", theme.palette.action.hoverOpacity),
+        },
+      },
+      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+        backgroundColor: "#38b6ff",
+      },
+    }));
 
     const checkAllSwitch = (
       <span style={{ margin: "15px" }}>

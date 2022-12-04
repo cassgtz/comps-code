@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import ListContainer from "./ListContainer";
-import { AllVitaminsMetText, DisplayRecommendationsText } from "./Texts";
+import {AllVitaminsMetText, DisplayRecommendationsText} from "./Texts";
 
 
 export default class FetchNutritionalData extends Component{
@@ -127,23 +127,16 @@ export default class FetchNutritionalData extends Component{
         return (
             <div >
                 {this.state.loading ? (<div><p style={{color:'white'}}>Loading....</p></div>) : (
-                    /*
-                    <div>
-                        <Recommendations
-                        missing_vitamins={this.state.missing_vitamins}
-                        checkAll={this.state.checkedAll}
-                        filtered_missing_vitamins={this.state.filtered_missing_vitamins}
-                        />
-                    </div>*/
                     <div style = {{height: 'auto', display: 'flex', flexDirection: 'column'}}>
-                    {this.state.missing_vitamins.length !== 0 ?
+                {this.state.missing_vitamins.length !== 0 ?
                         <div>
                             <DisplayRecommendationsText/>
-                            <ListContainer
+                            <ListContainer 
                                 missing_vitamins = {this.state.checkedAll !== 0 ? this.state.missing_vitamins : this.state.filtered_missing_vitamins}
                             />
                         </div> : < AllVitaminsMetText/>}
-                    </div>
+            </div>
+                  
                 )}
             </div>
         );

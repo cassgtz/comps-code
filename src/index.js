@@ -1,5 +1,7 @@
-/*
+/**
+
     The function in this file renders all components on the page
+
 */
 import StartPage from "./components/StartPage";
 import Header from "./components/Header";
