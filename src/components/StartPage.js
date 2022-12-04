@@ -1,6 +1,13 @@
+/**
+ 
+    This file renders all components in the starting page, as well as the barcode scanner. 
+    It retrieves & feeds all data/props to FetchNutritionalData. 
+    The barcode scanner set up is taken from scandit-sdk-react Demo, altered for this project's needs.
+
+ */
 import React, { Component} from "react";
 import ScanditBarcodeScanner from "scandit-sdk-react";
-import { Switch, Button, styled, alpha } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import {
   BarcodePicker,
   Camera,
@@ -9,18 +16,18 @@ import {
   ScanSettings,
   SingleImageModeSettings,
 } from "scandit-sdk";
-import GetNutritionalData from "./DisplayNutrients";
-import {ToggleExplanation, AppDescription} from "./Text";
+import FetchNutritionalData from "./FetchNutritionalData";
+import {ToggleExplanation, AppDescription} from "./Texts";
+import { BlueSwitch } from "./BlueSwitch";
 
-// Barcode scanner set up taken from scandit-sdk-react Demo
-class HomePage extends Component {
-  // Input variables 
+export default class StartPage extends Component {
   
-  shouldShowNutrients = false; // to show output results
+  // Declare input variables 
+  doneScanning = false; // to show output results
   sex = "Female"; // Sex default
   checkAll = 0; // Check for all vitamins? -- default is off 
 
-  // Barcode Scanner variables
+  // Decalre Barcode Scanner variables
   licenseKey = "AYUivAWjJzC6JurcKQWiRq08XVOgArB9gkGHRLFtek/cEkA/zFyySRx1F+1WbzdmrRmoJpB/pCvUJUSOPUQ36pkH8LSQUv+nwh9x9D9liFMYU3WeAg/Cs34rHmRfML+ufxsvlouc3h2KXyOTxqtMbfokTV26rUSAIxu/QFBYnDsyvoTgIPC0Muj4TXkAfioaN3YxTQBT+6Ng80pJnqGYlkqYHRZk1qf2fC505M4RgHVN4FbT2xB/rMjRdfxhTbtF49yYcB8m6gDkv2tXmRoa4VxYijCKGTq3c4d/80fw0Ck1WwpBh62/oG7HyBqOG0yUayQqOpihzOFevU7SBhFM8ZulJCZcdbtqkq8uxCktzxarf490jkiRzzoGOe++fsFWBqPlcf2g+Geull2lyUE93WxbhOuxFs89lmaemn5K9SSdOTl0b33zzM4Nib0OxCVbRjKXeO2Bfb1Yexx/AERos6Li2+FQcRLbYNhCkl6AEPlq6srs8KnbeXwENv1HoQloCfZ5rKAID+CgwczpLsmPPYmGwxD5ToyVmQtZRLu7e4eKDX819drAA4JM96byPXfcTgM/6pkigbtDhUynMWD+FuG+yJ/bJB5mGPEbVBknO511+kw8I53aJ3B7YIVQyX6EwL02crj9Mkx2VSRiN42G96ofNTrGsCQGhotth/97JR/28aXYqHIjRrKWi01wT3WqUhQuINuRtcI+xcr0uRhKKm3LtahL6nxQJNNPZ1SjwUoq3kyHXAGdalKDqzvVgGLVCTY8EAoyF0XMOODOAW4OS03qqnnkiF62wSs15/WQ/zwfLxY=";
   scannedBarcodes = [];
 
@@ -69,46 +76,22 @@ class HomePage extends Component {
     return scanSettings;
   };
 
-  scannerState = () => {
-    if (!this.state.shouldShowScannerComponent) {
-      return "Not shown, will initialize";
-    } else if (this.state.shouldShowScannerComponent && !this.state.scannerReady) {
-      return "Initializing";
-    } else if (this.state.shouldShowScannerComponent && this.state.scannerReady) {
-      if (!this.state.paused) {
-        return "Ready & Scanning";
-      } else {
-        return "Ready & Paused";
-      }
-    }
-  };
-
   getScanner = () => {
     return (
       this.state.shouldShowScannerComponent && (
         <ScanditBarcodeScanner
-          // Library licensing & configuration options (see https://docs.scandit.com/stable/web/globals.html#configure)
           licenseKey={this.licenseKey}
-          engineLocation="https://cdn.jsdelivr.net/npm/scandit-sdk@5.x/build" // could also be a local folder, e.g. "build"
-          // Picker events
+          engineLocation="https://cdn.jsdelivr.net/npm/scandit-sdk@5.x/build"
           onReady={() => this.setState({ scannerReady: true })}
-          // eslint-disable-next-line no-console
-          onScan={(scanResult)=>{ // SAVE RESULTS INTO AN ARRAY
+          // Save scanned barcodes into an array
+          onScan={(scanResult)=>{ 
             console.log(this.scannedBarcodes === undefined);
             this.scannedBarcodes.push(scanResult.barcodes[0].data);
             console.log(this.scannedBarcodes);
           }}
-          // eslint-disable-next-line no-console
           onScanError={console.error}
-
-          // Picker options
           scanSettings={this.getScanSettings()}
           paused={this.state.paused}
-          /*️
-            ⚠️ Make sure to keep accessCamera and paused synchronized in a sensible way, as resuming scanning accesses
-            the camera, so your state might become outdated.
-            For example, set accessCamera to true whenever scanning is resumed.
-          */
           accessCamera={this.state.accessCamera}
           camera={this.state.activeCamera}
           cameraSettings={this.state.cameraSettings}
@@ -136,23 +119,10 @@ class HomePage extends Component {
   render() {
     const scanner = this.getScanner();
 
-
-    const BlueSwitch = styled(Switch)(({ theme }) => ({
-      '& .MuiSwitch-switchBase.Mui-checked': {
-        color: "#38b6ff",
-        '&:hover': {
-          backgroundColor: alpha("#38b6ff", theme.palette.action.hoverOpacity),
-        },
-      },
-      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-        backgroundColor: "#38b6ff",
-      },
-    }));
-
     const checkAllSwitch = (
       <span style={{ margin: "15px" }}>
           <BlueSwitch
-              onChange={ ()=>{this.checkAll === 0 ? this.checkAll = 1 : this.checkAll = 0; console.log(this.checkAll);}}
+              onChange={ ()=>{this.checkAll === 0 ? this.checkAll = 1 : this.checkAll = 0}}
               sx ={{color: "#38b6ff"}}
           />
           Check for ALL vitamins
@@ -185,11 +155,10 @@ class HomePage extends Component {
             Male
           </label>
         </div>
-
       </form>
     );
-
-    const startButton = (
+      
+    const scanButton = (
       <Button
         onClick={() => this.setState({ shouldShowScannerComponent: true, paused: false, accessCamera: true })}
         disabled={this.state.shouldShowScannerComponent || !this.state.paused}
@@ -208,14 +177,15 @@ class HomePage extends Component {
         Scan Items
       </Button>
     );
-    const stopButton = (
+
+    const doneButton = (
       <Button
         onClick={() => {
-          if (this.scannedBarcodes.length !== 0) {
-            this.shouldShowNutrients = true;
-          }
-          this.setState({ paused: true, shouldShowScannerComponent: false, scannerReady: false});
-        }}
+            if (this.scannedBarcodes.length !== 0) {
+              this.doneScanning = true;
+            }
+            this.setState({ paused: true, shouldShowScannerComponent: false, scannerReady: false});
+          }}
         disabled={!this.state.shouldShowScannerComponent || this.state.paused}
         variant="contained"
         style={{
@@ -237,14 +207,13 @@ class HomePage extends Component {
 
     return (
       <React.Fragment>
-        {this.shouldShowNutrients === false ? 
+        {this.doneScanning === false ? 
         
             <div style={{ display: 'flex', flexDirection: 'column'}}>
             {this.state.shouldShowScannerComponent !== true ?
             <div>
               <AppDescription/>
-            
-              <div >
+              <div>
                 <div style={{backgroundColor: "white", paddingLeft: "10px", paddingRight: "10px", paddingTop: "70px", paddingBottom: "70px"}}>
                   {checkAllSwitch}
                   <ToggleExplanation/>
@@ -261,11 +230,8 @@ class HomePage extends Component {
                 {scanner}
             </div>
 
-            <div style={{ display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                paddingTop: '25px'}}>
-            {this.state.shouldShowScannerComponent !== true ? startButton : stopButton}</div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '25px'}}>
+            {this.state.shouldShowScannerComponent !== true ? scanButton : doneButton}</div>
             </div>
 
 
@@ -277,7 +243,7 @@ class HomePage extends Component {
 
 
             <div>
-              <GetNutritionalData
+              <FetchNutritionalData
                 barcodeArray={this.scannedBarcodes}
                 sex={this.sex}
                 checkedAll={this.checkAll}
@@ -289,4 +255,3 @@ class HomePage extends Component {
     );
   }
 }
-export default HomePage;

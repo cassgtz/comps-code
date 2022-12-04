@@ -1,8 +1,10 @@
-import HomePage from "./components/HomePage";
+/*
+    The function in this file renders all components on the page
+*/
+import StartPage from "./components/StartPage";
 import Header from "./components/Header";
 import { createRoot } from 'react-dom/client';
 
-// This function renders the page
 function WebPage(){
     return(
         <div style={{display: 'flex', flexDirection: 'column'}}>
@@ -20,7 +22,7 @@ function WebPage(){
                             minHeight: '100vh'
                             }}>
                     <div>
-                        <HomePage style={{boxSizing: 'content-box'}}/>
+                        <StartPage style={{boxSizing: 'content-box'}}/>
                     </div>
                 </div>
             </div>

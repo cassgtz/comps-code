@@ -7,10 +7,11 @@
 
 import React, { Component } from "react";
 import List from "./List";
+import {foodSources} from "./Recommendations";
 
 class ListContainer extends Component {
     state = {
-        data: this.props.data
+        data: foodSources
     };
 
     render() {
