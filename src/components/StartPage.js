@@ -1,13 +1,12 @@
 /**
  
     This file renders all components in the starting page, as well as the barcode scanner. 
-    It retrieves & feeds all data/props to FetchNutritionalData. 
+    It retrieves & feeds all data/props to MissingNutrients. 
     The barcode scanner set up is taken from scandit-sdk-react Demo, altered for this project's needs.
 
  */
 import React, { Component} from "react";
 import ScanditBarcodeScanner from "scandit-sdk-react";
-import { Button } from "@material-ui/core";
 import {
   BarcodePicker,
   Camera,
@@ -16,9 +15,9 @@ import {
   ScanSettings,
   SingleImageModeSettings,
 } from "scandit-sdk";
-import FetchNutritionalData from "./FetchNutritionalData";
+import MissingNutrients from "./MissingNutrients";
 import {ToggleExplanation, AppDescription} from "./Texts";
-import { Switch, styled, alpha } from "@material-ui/core";
+import { Switch, Button, styled, alpha } from "@material-ui/core";
 
 export default class StartPage extends Component {
   
@@ -39,21 +38,19 @@ export default class StartPage extends Component {
       paused: true,
       accessCamera: false,
       cameras: [],
-      cameraSettings: {
-        resolutionPreference: CameraSettings.ResolutionPreference.HD,
-      },
+      cameraSettings: {resolutionPreference: CameraSettings.ResolutionPreference.HD},
       enableCameraSwitcher: true,
       enablePinchToZoom: true,
       enableTapToFocus: true,
       enableTorchToggle: true,
       guiStyle: BarcodePicker.GuiStyle.LASER,
-      laserArea: { x: 0, y: 0, width: 1, height: 1 },
+      laserArea: {x: 0, y: 0, width: 1, height: 1},
       playSoundOnScan: true,
       targetScanningFPS: 40, // frames per second to be processed
-      vibrateOnScan: false,
+      vibrateOnScan: true,
       videoFit: BarcodePicker.ObjectFit.CONTAIN,
       visible: true,
-      viewfinderArea: { x: 0, y: 0, width: 1, height: 1 },
+      viewfinderArea: {x: 0, y: 0, width: 1, height: 1},
       zoom: 0,
       cameraType: Camera.Type.FRONT,
       singleImageModeSettings: {
@@ -65,7 +62,7 @@ export default class StartPage extends Component {
         },
       },
     };
-    CameraAccess.getCameras().then((cameras) => this.setState({ cameras }));
+    CameraAccess.getCameras().then((cameras) => this.setState({cameras}));
   }
 
   getScanSettings = () => {
@@ -84,8 +81,7 @@ export default class StartPage extends Component {
           engineLocation="https://cdn.jsdelivr.net/npm/scandit-sdk@5.x/build"
           onReady={() => this.setState({ scannerReady: true })}
           // Save scanned barcodes into an array
-          onScan={(scanResult)=>{ 
-            console.log(this.scannedBarcodes === undefined);
+          onScan={(scanResult)=>{
             this.scannedBarcodes.push(scanResult.barcodes[0].data);
             console.log(this.scannedBarcodes);
           }}
@@ -122,9 +118,7 @@ export default class StartPage extends Component {
     const BlueSwitch = styled(Switch)(({ theme }) => ({
       '& .MuiSwitch-switchBase.Mui-checked': {
         color: "#38b6ff",
-        '&:hover': {
-          backgroundColor: alpha("#38b6ff", theme.palette.action.hoverOpacity),
-        },
+        '&:hover': {backgroundColor: alpha("#38b6ff", theme.palette.action.hoverOpacity)},
       },
       '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
         backgroundColor: "#38b6ff",
@@ -132,9 +126,9 @@ export default class StartPage extends Component {
     }));
 
     const checkAllSwitch = (
-      <span style={{ margin: "15px" }}>
+      <span style={{ margin: "15px", fontFamily: 'Arial, sans-serif'}}>
           <BlueSwitch
-              onChange={ ()=>{this.checkAll === 0 ? this.checkAll = 1 : this.checkAll = 0}}
+              onChange={()=>{this.checkAll === 0 ? this.checkAll = 1 : this.checkAll = 0}}
               sx ={{color: "#38b6ff"}}
           />
           Check for ALL vitamins
@@ -150,7 +144,7 @@ export default class StartPage extends Component {
               type="radio"
               name="Sex"
               value="Female"
-              onChange={(changeEvent)=>{this.sex = changeEvent.target.value; console.log(this.sex);}}
+              onChange={(changeEvent)=>{this.sex = changeEvent.target.value}}
               defaultChecked
             />
             Female
@@ -162,7 +156,7 @@ export default class StartPage extends Component {
               type="radio"
               name="Sex"
               value="Male"
-              onChange={(changeEvent)=>{this.sex = changeEvent.target.value; console.log(this.sex);}}
+              onChange={(changeEvent)=>{this.sex = changeEvent.target.value}}
             />
             Male
           </label>
@@ -173,7 +167,7 @@ export default class StartPage extends Component {
     const scanButton = (
       <Button
         onClick={() => this.setState({ shouldShowScannerComponent: true, paused: false, accessCamera: true })}
-        disabled={this.state.shouldShowScannerComponent || !this.state.paused}
+        disabled={this.state.shouldShowScannerComponent}
         variant="contained"
         style={{
           color: "white",
@@ -183,7 +177,7 @@ export default class StartPage extends Component {
           padding: '17px',
           paddingLeft: '50px',
           paddingRight: '50px',
-          fontSize: '12px'
+          fontSize: '15px'
         }}
       >
         Scan Items
@@ -208,61 +202,47 @@ export default class StartPage extends Component {
           padding: '17px',
           paddingLeft: '50px',
           paddingRight: '50px',
-          fontSize: '12px'
+          fontSize: '15px'
         }}
       >
         Done
       </Button>
     );
     
-    
 
     return (
       <React.Fragment>
-        {this.doneScanning === false ? 
-        
-            <div style={{ display: 'flex', flexDirection: 'column'}}>
+        {this.doneScanning === false ? (
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
             {this.state.shouldShowScannerComponent !== true ?
-            <div>
-              <AppDescription/>
-              <div>
-                <div style={{backgroundColor: "white", paddingLeft: "10px", paddingRight: "10px", paddingTop: "70px", paddingBottom: "70px"}}>
-                  {checkAllSwitch}
-                  <ToggleExplanation/>
-                  <div>{sexSelection}</div>
+                <div style={{backgroundColor: "#38b6ff", paddingLeft: "10px", paddingRight: "10px", paddingTop: "10px", paddingBottom: "10px"}}>
+                  <div style={{backgroundColor: "white", paddingLeft: "10px", paddingRight: "10px", paddingTop: "70px", paddingBottom: "70px"}}>
+                    <AppDescription/>
+                    {checkAllSwitch}
+                    <ToggleExplanation/>
+                    <div style={{justifyContent: 'center', display:'flex', fontSize: '15px', fontFamily: 'helvetica'}}>
+                      {sexSelection}
+                    </div>
+                  </div>
                 </div>
-                
-              </div>
-            </div>
-              : null }
-              
-            <div style={{ display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',boxSizing: 'content-box'}}>
+            : null}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'content-box'}}>
                 {scanner}
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '25px'}}>
-            {this.state.shouldShowScannerComponent !== true ? scanButton : doneButton}</div>
-            </div>
-
-
-
-            
-            
-            : 
-
-
-
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '25px', paddingBottom: '0px'}}>
+                {this.state.shouldShowScannerComponent !== true ? scanButton : doneButton}
+              </div>
+            </div> 
+        ) : (
             <div>
-              <FetchNutritionalData
+              <MissingNutrients
                 barcodeArray={this.scannedBarcodes}
                 sex={this.sex}
                 checkedAll={this.checkAll}
               />
-            </div>
-
-            }
+            </div> 
+          )
+        }
       </React.Fragment>
     );
   }

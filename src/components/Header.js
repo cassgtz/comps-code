@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         textAlign: "center",
         color: "#38b6ff",
         fontSize: 40,
-        elevation: 0
+        elevation: 0,
       }
   });
   
@@ -28,4 +28,4 @@ export default function Header() {
             </Toolbar>
         </AppBar>
     );
-}
+};

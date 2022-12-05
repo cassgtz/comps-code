@@ -1,17 +1,23 @@
-import React, {Component} from "react";
+/**
+ 
+    This file takes in the scanned items' barcodes & fetches their nutritional information. It also handles the determination of 
+    the grocery haul's nutritional values meeting that of the user's recommended intake values, based on factors passed in from 
+    props. 
+    This component returns the list of missing nutrients. 
+
+ */
+import React, { Component } from "react";
 import ListContainer from "./ListContainer";
-import {AllVitaminsMetText, DisplayRecommendationsText} from "./Texts";
+import { AllVitaminsMetText, DisplayRecommendationsText, Loading } from "./Texts";
 
-
-export default class FetchNutritionalData extends Component{
+export default class MissingNutrients extends Component {
 
     state={
         loading: true,
         checkedAll: this.props.checkedAll,
-        missing_vitamins: [],
-        filtered_missing_vitamins: [],
+        missing_nutrients: [],
+        filtered_missing_nutrients: [],
     };
-
 
     async componentDidMount(){
 
@@ -92,7 +98,7 @@ export default class FetchNutritionalData extends Component{
 
 
         // Get missing vitamins (vitaminS with value 0)
-        this.state.missing_vitamins = [...vitamin_values.entries()]
+        this.state.missing_nutrients = [...vitamin_values.entries()]
         .filter(({ 1: v }) => v === 0)
         .map(([k]) => k);
 
@@ -102,8 +108,8 @@ export default class FetchNutritionalData extends Component{
                 //get vitamin value from map
                 //compare to recommended value
                 if (vitamin_values.get(vitamin_keys[k] < male_rec_values_mcg[k])) {
-                    // if its below, add to missing_vitamins
-                    this.state.missing_vitamins.push(vitamin_keys[k]);
+                    // if its below, add to missing_nutrients
+                    this.state.missing_nutrients.push(vitamin_keys[k]);
                 }
             }
         }
@@ -112,31 +118,31 @@ export default class FetchNutritionalData extends Component{
             for (var s = 0; s < vitamin_keys.length; s++) {
                 if (vitamin_values.get(vitamin_keys[s] < female_rec_values_mcg[s])) {
                     // if its below, add to missing_vitamins
-                    this.state.missing_vitamins.push(vitamin_keys[s]);
+                    this.state.missing_nutrients.push(vitamin_keys[s]);
                 }
             }
         }
 
         const requiredVitamins = ["Vitamin D"];
-        this.state.filtered_missing_vitamins = this.state.missing_vitamins.filter(missing => requiredVitamins.includes(missing));
+        this.state.filtered_missing_nutrients = this.state.missing_nutrients.filter(missing => requiredVitamins.includes(missing));
         this.setState({loading: false});
     }
 
 
     render(){
-        return (
+        return(
             <div >
-                {this.state.loading ? (<div><p style={{color:'white'}}>Loading....</p></div>) : (
+                {this.state.loading ? ( <Loading/> ) : (
                     <div style = {{height: 'auto', display: 'flex', flexDirection: 'column'}}>
-                {this.state.missing_vitamins.length !== 0 ?
-                        <div>
-                            <DisplayRecommendationsText/>
-                            <ListContainer 
-                                missing_vitamins = {this.state.checkedAll !== 0 ? this.state.missing_vitamins : this.state.filtered_missing_vitamins}
-                            />
-                        </div> : < AllVitaminsMetText/>}
-            </div>
-                  
+                        {this.state.missing_nutrients.length !== 0 ?
+                            <div>
+                                <DisplayRecommendationsText/>
+                                <ListContainer 
+                                    missing_nutrients = {this.state.checkedAll !== 0 ? this.state.missing_nutrients : this.state.filtered_missing_nutrients}
+                                />
+                            </div> 
+                        : <AllVitaminsMetText/>}
+                    </div>
                 )}
             </div>
         );
