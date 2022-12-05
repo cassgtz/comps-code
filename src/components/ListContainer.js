@@ -41,8 +41,7 @@ class ListContainer extends Component{
                     {
                         "food": "Soft serve vanilla ice cream",
                         "id": 7
-                    }
-                ]
+                    }]
             },
             {
                 "id": 2,
@@ -52,7 +51,7 @@ class ListContainer extends Component{
                         "id": 1
                     },
                     {
-                        "food": "Breakfast cereals",
+                        "food": "Breakfast cereals (thiamin fortified)",
                         "id": 2
                     },
                     {
@@ -78,8 +77,7 @@ class ListContainer extends Component{
                     {
                         "food": "Mussels (blue)",
                         "id": 8
-                    }
-                ]
+                    }]
             },
             {
                 "id": 3,
@@ -89,7 +87,7 @@ class ListContainer extends Component{
                         "id": 1
                     },
                     {
-                        "food": "Breakfast cereals",
+                        "food": "Breakfast cereals (riboflavin fortified)",
                         "id": 2
                     },
                     {
@@ -119,8 +117,7 @@ class ListContainer extends Component{
                     {
                         "food": "Swiss cheese",
                         "id": 9
-                    }
-                ]
+                    }]
             },
             {
                 "id": 4,
@@ -162,10 +159,9 @@ class ListContainer extends Component{
                         "id": 9
                     },
                     {
-                        "food": "Breakfast cereals",
+                        "food": "Breakfast cereals (niacin fortified)",
                         "id": 10
-                    }
-                ]
+                    }]
             },
             {
                 "id": 5,
@@ -209,8 +205,7 @@ class ListContainer extends Component{
                     {
                         "food": "Marinara sauce",
                         "id": 10
-                    }
-                ]
+                    }]
             },
             {
                 "id": 6,
@@ -228,7 +223,7 @@ class ListContainer extends Component{
                         "id": 3
                     },
                     {
-                        "food": "Nutritional yeast (fortified)",
+                        "food": "Nutritional yeast (B12 fortified)",
                         "id": 4
                     },
                     {
@@ -248,10 +243,9 @@ class ListContainer extends Component{
                         "id": 8
                     },
                     {
-                        "food": "Breakfast cereals",
+                        "food": "Breakfast cereals (B12 fortified)",
                         "id": 9
-                    }
-                ]
+                    }]
             },
             {
                 "id": 7,
@@ -311,8 +305,7 @@ class ListContainer extends Component{
                     {
                         "food": "Cauliflower",
                         "id": 14
-                    }
-                ]
+                    }]
             },
             {
                 "id": 8,
@@ -332,8 +325,7 @@ class ListContainer extends Component{
                     {
                         "food": "Mushrooms (white)",
                         "id": 4
-                    }
-                ]
+                    }]
             },
             {
                 "id": 9,
@@ -361,8 +353,7 @@ class ListContainer extends Component{
                     {
                         "food": "Hazelnuts",
                         "id": 6
-                    }
-                ]
+                    }]
             },
             {
                 "id": 10,
@@ -380,7 +371,7 @@ class ListContainer extends Component{
                         "id": 3
                     },
                     {
-                        "food": "Breakfast cereals",
+                        "food": "Breakfast cereals (B9 fortified)",
                         "id": 4
                     },
                     {
@@ -394,10 +385,96 @@ class ListContainer extends Component{
                     {
                         "food": "Brussels",
                         "id": 7
-                    }
-                ]
+                    }]
             },
-    
+            {
+                "id": 11,
+                "nutrient": "Calcium",
+                "sources": [{
+                        "food": "Yogurt (low fat)",
+                        "id": 1
+                    },
+                    {
+                        "food": "Orange juice (calcium fortified)",
+                        "id": 2
+                    },
+                    {
+                        "food": "Mozzarella (part skim)",
+                        "id": 3
+                    },
+                    {
+                        "food": "Sardines",
+                        "id": 4
+                    },
+                    {
+                        "food": "Milk (nonfat)",
+                        "id": 5
+                    },
+                    {
+                        "food": "Soymilk (calcium fortified)",
+                        "id": 6
+                    },
+                    {
+                        "food": "Milk (3.25% fat)",
+                        "id": 7
+                    }]
+            },
+            {
+                "id": 12,
+                "nutrient": "Iron",
+                "sources": [{
+                        "food": "Breakfast cereals (iron fortified)",
+                        "id": 1
+                    },
+                    {
+                        "food": "Oysters (eastern)",
+                        "id": 2
+                    },
+                    {
+                        "food": "White beans (canned)",
+                        "id": 3
+                    },
+                    {
+                        "food": "Beef liver",
+                        "id": 4
+                    }]
+            },
+            {
+                "id": 13,
+                "nutrient": "Potassium",
+                "sources": [{
+                        "food": "Apricots",
+                        "id": 1
+                    },
+                    {
+                        "food": "Lentils",
+                        "id": 2
+                    },
+                    {
+                        "food": "Squash",
+                        "id": 3
+                    },
+                    {
+                        "food": "Prunes",
+                        "id": 4
+                    },
+                    {
+                        "food": "Raisins",
+                        "id": 5
+                    },
+                    {
+                        "food": "Potatoes",
+                        "id": 6
+                    },
+                    {
+                        "food": "Kidney beans",
+                        "id": 7
+                    },
+                    {
+                        "food": "Orange juice",
+                        "id": 8
+                    }]
+            },
         ]
     };
     

@@ -8,12 +8,12 @@ import React from "react";
 // Rendered in the food recommendations page to explain what is being shown to user
 export function DisplayRecommendationsText(){
     return <p style={{width: '350px', display:'flex', textAlign:'center', color: "white", fontSize: '15px', fontFamily: 'helvetica'}}>
-        Looks like you havent met your recommended intake for these micronutrients. Click on each to see their food sources.
+        Looks like you're not getting enough of the nutrients shown below. Click on each to see their food sources.
         </p>;
 }
 
 // Rendered if user has met their recommended intake values -- no recommendations
-export function AllVitaminsMetText(){
+export function AllNutrientsMetText(){
     return <p>You've met your recommended intake value for all vitamins!</p>;
 }
 

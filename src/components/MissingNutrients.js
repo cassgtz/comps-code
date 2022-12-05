@@ -8,9 +8,9 @@
  */
 import React, { Component } from "react";
 import ListContainer from "./ListContainer";
-import { AllVitaminsMetText, DisplayRecommendationsText, Loading } from "./Texts";
+import { AllNutrientsMetText, DisplayRecommendationsText, Loading } from "./Texts";
 
-export default class MissingNutrients extends Component {
+export default class MissingNutrients extends Component{
 
     state={
         loading: true,
@@ -25,41 +25,32 @@ export default class MissingNutrients extends Component {
         const app_ID = '4919b9fe'
         const api_key = '54d44224aed9410f8c1ea485afe7c71c'
 
-        /*
-        // minerals:
-        var zinc = 0; // ZN
-        var phosphorus = 0; // P
-        var magnesium = 0; // MG
-        var potassium = 0; // K
-        var iron = 0; // FE
-        */
-
         // SET VARIABLES
-
-        // array of vitamins in query form
-        var vit_query_list = ['VITA_RAE', 'THIA', 'RIBF', 'NIA', 'VITB6A', 'VITB12', 'VITC', 'VITD', 'TOCPHA', 'VITK1', 'FOLAC', 'FOLDFE', 'FOLFD'];
+        // array of nutrients in query form
+        var nutrients_query_list = ['VITA_RAE', 'THIA', 'RIBF', 'NIA', 'VITB6A', 'VITB12', 'VITC', 'VITD', 'TOCPHA', 'VITK1', 'FOLAC', 'FOLDFE', 'FOLFD', 'CA', 'FE', 'K'];
         // create a dictionary of vitamin (key) & their quantities (value)
-        var vitamin_values = new Map();
-        var vitamin_keys = ["Vitamin A", "Thiamin", "Riboflavin", "Niacin", "Vitamin B6", "Vitamin B12", "Vitamin C", "Vitamin D", "Vitamin E", "Vitamin K", "Vitamin B9"];
-        var male_rec_values_mcg = [900, 1200, 1300, 1600, 1300, 2.4, 90000, 15, 1500, 120, 400];
-        var female_rec_values_mcg = [700, 1100, 1100, 1400, 1300, 2.4, 75000, 15, 1500, 90, 400];
+        var nutrient_values = new Map();
+        var nutrient_keys = ["Vitamin A", "Thiamin", "Riboflavin", "Niacin", "Vitamin B6", "Vitamin B12", "Vitamin C", "Vitamin D", "Vitamin E", "Vitamin K", "Calcium", "Iron", "Potassium", "Vitamin B9"];
+        var male_rec_values = [900, 1200, 1300, 1600, 1300, 2.4, 90000, 15, 1500, 120, 1000, 8, 4700, 400];
+                                                                                            // mg starts at 1000
+        var female_rec_values = [700, 1100, 1100, 1400, 1300, 2.4, 75000, 15, 1500, 90, 1000, 18, 4700, 400];
         // handle nulls in queries -> initialize everything to 0
-        for(var j = 0; j < vitamin_keys.length; j++){ 
-            vitamin_values.set(vitamin_keys[j], 0); 
+        for(var j = 0; j < nutrient_keys.length; j++){ 
+            nutrient_values.set(nutrient_keys[j], 0); 
         } 
 
         // set vitamin values
         // add the vitmain value to existing value in dictionary
-        function addVitamins(obj, vit_query_list){
-            for (var i = 0; i < vitamin_keys.length; i++) {
+        function addNutrients(obj, nutrients_query_list){
+            for (var i = 0; i < nutrient_keys.length; i++) {
                 // handle B9, it takes 3 query keys
-                if (i === 10) {
-                    var B9_total = vitamin_values.get(vitamin_keys[i]) + getVitaminValue(obj, 'FOLAC') + getVitaminValue(obj, 'FOLDFE') + getVitaminValue(obj, 'FOLFD');
-                    vitamin_values.set(vitamin_keys[i], B9_total);
+                if (i === 13) {
+                    var B9_total = nutrient_values.get(nutrient_keys[i]) + getNutrientValue(obj, 'FOLAC') + getNutrientValue(obj, 'FOLDFE') + getNutrientValue(obj, 'FOLFD');
+                    nutrient_values.set(nutrient_keys[i], B9_total);
                 }
                 else {
-                    var new_value = vitamin_values.get(vitamin_keys[i]) + getVitaminValue(obj, vit_query_list[i]);
-                    vitamin_values.set(vitamin_keys[i], new_value);
+                    var new_value = nutrient_values.get(nutrient_keys[i]) + getNutrientValue(obj, nutrients_query_list[i]);
+                    nutrient_values.set(nutrient_keys[i], new_value);
                 }
             }
         }
@@ -67,7 +58,7 @@ export default class MissingNutrients extends Component {
         // look for vitamin in the json object
         // get its value & return as a number 
         // if null or not found, return 0
-        function getVitaminValue(obj, key){
+        function getNutrientValue(obj, key){
             const value = obj['hints'][0]['food']['nutrients'][key];
             console.log(key + value);
             if (value) {
@@ -89,41 +80,41 @@ export default class MissingNutrients extends Component {
                 console.log("API response:");
                 console.log(data);
                 // Add all vitamins 
-                addVitamins(data, vit_query_list);
+                addNutrients(data, nutrients_query_list);
             }
         }
 
         console.log("Updated:");
-        console.log([...vitamin_values.entries()]);
+        console.log([...nutrient_values.entries()]);
 
 
         // Get missing vitamins (vitaminS with value 0)
-        this.state.missing_nutrients = [...vitamin_values.entries()]
+        this.state.missing_nutrients = [...nutrient_values.entries()]
         .filter(({ 1: v }) => v === 0)
         .map(([k]) => k);
 
         // Get deficient vitamins
         if (this.props.sex === "Male"){
-            for (var k = 0; k < vitamin_keys.length; k++) {
+            for (var k = 0; k < nutrient_keys.length; k++) {
                 //get vitamin value from map
                 //compare to recommended value
-                if (vitamin_values.get(vitamin_keys[k] < male_rec_values_mcg[k])) {
+                if (nutrient_values.get(nutrient_keys[k] < male_rec_values[k])) {
                     // if its below, add to missing_nutrients
-                    this.state.missing_nutrients.push(vitamin_keys[k]);
+                    this.state.missing_nutrients.push(nutrient_keys[k]);
                 }
             }
         }
         else {
             // repeat for female values
-            for (var s = 0; s < vitamin_keys.length; s++) {
-                if (vitamin_values.get(vitamin_keys[s] < female_rec_values_mcg[s])) {
+            for (var s = 0; s < nutrient_keys.length; s++) {
+                if (nutrient_values.get(nutrient_keys[s] < female_rec_values[s])) {
                     // if its below, add to missing_vitamins
-                    this.state.missing_nutrients.push(vitamin_keys[s]);
+                    this.state.missing_nutrients.push(nutrient_keys[s]);
                 }
             }
         }
-
-        const requiredVitamins = ["Vitamin D"];
+        // Create the list of 
+        const requiredVitamins = ["Vitamin D", "Calcium", "Iron", "Potassium"];
         this.state.filtered_missing_nutrients = this.state.missing_nutrients.filter(missing => requiredVitamins.includes(missing));
         this.setState({loading: false});
     }
@@ -141,7 +132,7 @@ export default class MissingNutrients extends Component {
                                     missing_nutrients = {this.state.checkedAll !== 0 ? this.state.missing_nutrients : this.state.filtered_missing_nutrients}
                                 />
                             </div> 
-                        : <AllVitaminsMetText/>}
+                        : <AllNutrientsMetText/>}
                     </div>
                 )}
             </div>
