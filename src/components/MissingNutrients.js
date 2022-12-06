@@ -31,9 +31,8 @@ export default class MissingNutrients extends Component{
         // create a dictionary of vitamin (key) & their quantities (value)
         var nutrient_values = new Map();
         var nutrient_keys = ["Vitamin A", "Thiamin", "Riboflavin", "Niacin", "Vitamin B6", "Vitamin B12", "Vitamin C", "Vitamin D", "Vitamin E", "Vitamin K", "Calcium", "Iron", "Potassium", "Vitamin B9"];
-        var male_rec_values = [900, 1200, 1300, 1600, 1300, 2.4, 90000, 15, 1500, 120, 1000, 8, 4700, 400];
-                                                                                            // mg starts at 1000
-        var female_rec_values = [700, 1100, 1100, 1400, 1300, 2.4, 75000, 15, 1500, 90, 1000, 18, 4700, 400];
+        var male_rec_values = [900, 1.2, 1.3, 16, 1.3, 2.4, 90, 15, 15, 120, 1000, 8, 4700, 400];
+        var female_rec_values = [700, 1.1, 1.1, 14, 1.3, 2.4, 75, 15, 15, 90, 1000, 18, 4700, 400];
         // handle nulls in queries -> initialize everything to 0
         for(var j = 0; j < nutrient_keys.length; j++){ 
             nutrient_values.set(nutrient_keys[j], 0); 
@@ -114,8 +113,8 @@ export default class MissingNutrients extends Component{
             }
         }
         // Create the list of 
-        const requiredVitamins = ["Vitamin D", "Calcium", "Iron", "Potassium"];
-        this.state.filtered_missing_nutrients = this.state.missing_nutrients.filter(missing => requiredVitamins.includes(missing));
+        const requiredNutrients = ["Vitamin D", "Calcium", "Iron", "Potassium"];
+        this.state.filtered_missing_nutrients = this.state.missing_nutrients.filter(missing => requiredNutrients.includes(missing));
         this.setState({loading: false});
     }
 
