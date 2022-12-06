@@ -5,7 +5,7 @@
     The barcode scanner set up is taken from scandit-sdk-react Demo, altered for this project's needs.
 
  */
-import React, { Component} from "react";
+import React, { Component } from "react";
 import ScanditBarcodeScanner from "scandit-sdk-react";
 import {
   BarcodePicker,
@@ -16,8 +16,8 @@ import {
   SingleImageModeSettings,
 } from "scandit-sdk";
 import MissingNutrients from "./MissingNutrients";
-import {ToggleExplanation, AppDescription} from "./Texts";
-import { Switch, Button, styled, alpha } from "@material-ui/core";
+import {ToggleExplanation, AppDescription, CheckAllSwitch} from "./Texts";
+import { Switch, Button, styled, alpha, FormControlLabel } from "@material-ui/core";
 
 export default class StartPage extends Component {
   
@@ -126,13 +126,14 @@ export default class StartPage extends Component {
     }));
 
     const checkAllSwitch = (
-      <span style={{ margin: "15px", fontFamily: 'Arial, sans-serif'}}>
-          <BlueSwitch
-              onChange={()=>{this.checkAll === 0 ? this.checkAll = 1 : this.checkAll = 0}}
-              sx ={{color: "#38b6ff"}}
-          />
-          Check for ALL vitamins
-      </span>
+      <FormControlLabel
+        control={<BlueSwitch 
+                    onChange={()=>{this.checkAll === 0 ? this.checkAll = 1 : this.checkAll = 0}}
+                    sx ={{color: "#38b6ff"}}
+                  />}
+        label={<CheckAllSwitch/>}
+        labelPlacement="start"
+      />
     );
 
     const sexSelection = (
@@ -215,21 +216,19 @@ export default class StartPage extends Component {
         {this.doneScanning === false ? (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
             {this.state.shouldShowScannerComponent !== true ?
-                <div style={{backgroundColor: "#38b6ff", paddingLeft: "10px", paddingRight: "10px", paddingTop: "10px", paddingBottom: "10px"}}>
-                  <div style={{backgroundColor: "white", paddingLeft: "10px", paddingRight: "10px", paddingTop: "70px", paddingBottom: "70px"}}>
-                    <AppDescription/>
+                <div style={{borderWidth: '4px', borderStyle: 'solid', borderColor: '#38b6ff', backgroundColor: "white", paddingLeft: "10px", paddingRight: "10px", paddingTop: "40px", paddingBottom: "50px"}}>
+                  <AppDescription/>
+                  <div style={{fontSize: '14px', fontFamily: 'helvetica'}}>
                     {checkAllSwitch}
                     <ToggleExplanation/>
-                    <div style={{justifyContent: 'center', display:'flex', fontSize: '15px', fontFamily: 'helvetica'}}>
-                      {sexSelection}
-                    </div>
+                    <div style={{paddingLeft: '12px'}}>{sexSelection}</div>
                   </div>
                 </div>
             : null}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'content-box'}}>
+              <div style={{ paddingLeft: '55px', paddingRight: '55px',display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'content-box'}}>
                 {scanner}
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '25px', paddingBottom: '0px'}}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '25px'}}>
                 {this.state.shouldShowScannerComponent !== true ? scanButton : doneButton}
               </div>
             </div> 

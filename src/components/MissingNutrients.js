@@ -121,15 +121,17 @@ export default class MissingNutrients extends Component{
 
     render(){
         return(
-            <div >
+            <div>
                 {this.state.loading ? ( <Loading/> ) : (
-                    <div style = {{height: 'auto', display: 'flex', flexDirection: 'column'}}>
+                    <div style = {{height: 'auto', paddingTop: '30px', display: 'flex', flexDirection: 'column'}}>
                         {this.state.missing_nutrients.length !== 0 ?
                             <div>
                                 <DisplayRecommendationsText/>
-                                <ListContainer 
-                                    missing_nutrients = {this.state.checkedAll !== 0 ? this.state.missing_nutrients : this.state.filtered_missing_nutrients}
-                                />
+                                <div style = {{paddingTop: '20px', paddingBottom: '20px'}}>
+                                    <ListContainer
+                                        missing_nutrients = {this.state.checkedAll !== 0 ? this.state.missing_nutrients : this.state.filtered_missing_nutrients}
+                                    />
+                                </div>
                             </div> 
                         : <AllNutrientsMetText/>}
                     </div>
