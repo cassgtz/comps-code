@@ -8,7 +8,7 @@
  */
 import React, { Component } from "react";
 import ListContainer from "./ListContainer";
-import { AllNutrientsMetText, DisplayRecommendationsText, Loading } from "./Texts";
+import { AllNutrientsMetText, DisplayRecommendationsText, Loading, AccuracyReminder } from "./Texts";
 
 export default class MissingNutrients extends Component{
 
@@ -124,6 +124,7 @@ export default class MissingNutrients extends Component{
             <div>
                 {this.state.loading ? ( <Loading/> ) : (
                     <div style = {{height: 'auto', paddingTop: '30px', display: 'flex', flexDirection: 'column'}}>
+                        {this.state.checkedAll !== 0 ? <AccuracyReminder/> : null}
                         {this.state.missing_nutrients.length !== 0 ?
                             <div>
                                 <DisplayRecommendationsText/>

@@ -10,7 +10,7 @@ import { createRoot } from 'react-dom/client';
 function WebPage(){
     return(
         <div style={{display: 'flex', flexDirection: 'column'}}>
-            <div style={{paddingBottom: '50px'}}></div><Header/>
+            <div style={{paddingBottom: '40px'}}></div><Header/>
                 <div style={{ display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',

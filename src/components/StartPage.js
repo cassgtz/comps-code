@@ -16,7 +16,7 @@ import {
   SingleImageModeSettings,
 } from "scandit-sdk";
 import MissingNutrients from "./MissingNutrients";
-import {ToggleExplanation, AppDescription, CheckAllSwitch} from "./Texts";
+import {ToggleExplanation, AppDescription, CheckAllSwitch, UserDisclaimer} from "./Texts";
 import { Switch, Button, styled, alpha, FormControlLabel } from "@material-ui/core";
 
 export default class StartPage extends Component {
@@ -203,7 +203,7 @@ export default class StartPage extends Component {
           padding: '17px',
           paddingLeft: '50px',
           paddingRight: '50px',
-          fontSize: '15px'
+          fontSize: '17px'
         }}
       >
         Done
@@ -216,12 +216,15 @@ export default class StartPage extends Component {
         {this.doneScanning === false ? (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
             {this.state.shouldShowScannerComponent !== true ?
-                <div style={{borderWidth: '4px', borderStyle: 'solid', borderColor: '#38b6ff', backgroundColor: "white", paddingLeft: "10px", paddingRight: "10px", paddingTop: "40px", paddingBottom: "50px"}}>
-                  <AppDescription/>
-                  <div style={{fontSize: '14px', fontFamily: 'helvetica'}}>
-                    {checkAllSwitch}
-                    <ToggleExplanation/>
-                    <div style={{paddingLeft: '12px'}}>{sexSelection}</div>
+                <div>
+                  <UserDisclaimer/>
+                  <div style={{borderWidth: '3px', borderStyle: 'solid', borderColor: '#38b6ff', backgroundColor: "white", paddingLeft: "10px", paddingRight: "10px", paddingTop: "40px", paddingBottom: "10px"}}>
+                    <AppDescription/>
+                    <div style={{fontSize: '14px', fontFamily: 'helvetica', borderWidth: '1px', borderStyle: 'solid', borderColor: '#38b6ff', paddingBottom: '10px'}}>
+                      {checkAllSwitch}
+                      <ToggleExplanation/>
+                      <div style={{paddingLeft: '12px'}}>{sexSelection}</div>
+                    </div>
                   </div>
                 </div>
             : null}
