@@ -34,6 +34,11 @@ const List = ({list, classes, missing_nutrients}) => {
                 <AccordionDetails>
                     {expanded &&
                     <MUIList>
+                        <div style={{maxWidth: '340px', paddingTop: '0px'}}>
+                            <p style={{fontSize: '13px', textAlign: 'center', fontFamily: 'helvetica'}}>
+                                {list.benefits}
+                            </p>
+                        </div>
                         {list.sources.map(food =>
                             <ListItem
                                 key={food.id}

@@ -14,6 +14,7 @@ class ListContainer extends Component{
         foodSources: [{
                 "id": 1,
                 "nutrient": "Vitamin A",
+                "benefits": "Plays an important role in bone growth and in the immune system. Essential for vision & healthy skin/tissues. May lower lung and prostate cancer risk.",
                 "sources": [{
                         "food": "Beef liver",
                         "id": 1
@@ -46,6 +47,7 @@ class ListContainer extends Component{
             {
                 "id": 2,
                 "nutrient": "Thiamin",
+                "benefits": "Helps convert food into energy and is critical for nerve function. Needed for healthy skin, hair, muscles, & brain.",
                 "sources": [{
                         "food": "White rice",
                         "id": 1
@@ -82,6 +84,7 @@ class ListContainer extends Component{
             {
                 "id": 3,
                 "nutrient": "Riboflavin",
+                "benefits": "Helps convert food into energy. Needed for healthy skin, hair, blood, & brain.",
                 "sources": [{
                         "food": "Beef liver",
                         "id": 1
@@ -122,6 +125,7 @@ class ListContainer extends Component{
             {
                 "id": 4,
                 "nutrient": "Niacin",
+                "benefits": "Helps convert food into energy. Essential for healthy skin, blood cells, brain, and nervous system.",
                 "sources": [{
                         "food": "Beef liver",
                         "id": 1
@@ -166,6 +170,7 @@ class ListContainer extends Component{
             {
                 "id": 5,
                 "nutrient": "Vitamin B6",
+                "benefits": "Helps create red blood cells and neurotransmitters that play key roles in sleep, appetite, and moods. Influences cognitive abilities, immune function, and may reduce the risk of heart disease.",
                 "sources": [{
                         "food": "Chickpeas",
                         "id": 1
@@ -210,6 +215,7 @@ class ListContainer extends Component{
             {
                 "id": 6,
                 "nutrient": "Vitamin B12",
+                "benefits": "Assists in breaking down some fatty acids + amino acids. Helps make red blood cells, DNA, and may lower the risk of heart disease. Protects nerve cells and encourages their normal growth.",
                 "sources": [{
                         "food": "Beef liver",
                         "id": 1
@@ -250,6 +256,7 @@ class ListContainer extends Component{
             {
                 "id": 7,
                 "nutrient": "Vitamin C",
+                "benefits": "May lower the risk of cataracts and some cancers (those of the mouth, esophagus, stomach, & breast). Helps make collagen, serotonin, and norepinephrine. Strengthens the immune system and acts as an antioxidant, neutralizing unstable molecules that can damage cells.",
                 "sources": [{
                         "food": "Red peppers",
                         "id": 1
@@ -310,6 +317,7 @@ class ListContainer extends Component{
             {
                 "id": 8,
                 "nutrient": "Vitamin D",
+                "benefits": "Helps maintain strong teeth/bones and prevents bone fractures. ",
                 "sources": [{
                         "food": "Cod liver oil",
                         "id": 1
@@ -330,6 +338,7 @@ class ListContainer extends Component{
             {
                 "id": 9,
                 "nutrient": "Vitamin E",
+                "benefits": "Acts as an antioxidant, neutralizing unstable molecules that can damage cells. Diets rich in vitamin E may help prevent Alzheimer's disease. ",
                 "sources": [{
                         "food": "Wheat germ oil",
                         "id": 1
@@ -358,6 +367,7 @@ class ListContainer extends Component{
             {
                 "id": 10,
                 "nutrient": "Vitamin B9",
+                "benefits": "Vital for new cell creation. Helps prevent brain and spine birth defects when taken early in pregnancy. May reduce risk of heart disease and colon cancer. Offsets breast cancer risk among women who consume alcohol.",
                 "sources": [{
                         "food": "Beef liver",
                         "id": 1
@@ -390,6 +400,7 @@ class ListContainer extends Component{
             {
                 "id": 11,
                 "nutrient": "Calcium",
+                "benefits": "Builds and protects bones + teeth. Helps with muscle contractions and relaxation, blood clotting, nerve impulse transmission, and maintaining healthy blood pressure.",
                 "sources": [{
                         "food": "Yogurt (low fat)",
                         "id": 1
@@ -422,6 +433,7 @@ class ListContainer extends Component{
             {
                 "id": 12,
                 "nutrient": "Iron",
+                "benefits": "Helps red blood cells and muscle cells carry oxygen throughout the body. Needed for chemical reactions in the body and for making amino acids, collagen, neurotransmitters, and hormones.",
                 "sources": [{
                         "food": "Breakfast cereals (iron fortified)",
                         "id": 1
@@ -442,6 +454,7 @@ class ListContainer extends Component{
             {
                 "id": 13,
                 "nutrient": "Potassium",
+                "benefits": "Needed for muscle contractions. Helps maintain steady heartbeat, lower blood pressure, and send nerve impulses. ",
                 "sources": [{
                         "food": "Apricots",
                         "id": 1

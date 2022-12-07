@@ -21,25 +21,30 @@ export default class MissingNutrients extends Component{
 
     async componentDidMount(){
 
+        /**
+            SET VARIABLES
+         */
+        
         // API credentials & set up for Edamam API
         const app_ID = '4919b9fe'
         const api_key = '54d44224aed9410f8c1ea485afe7c71c'
 
-        // SET VARIABLES
-        // array of nutrients in query form
-        var nutrients_query_list = ['VITA_RAE', 'THIA', 'RIBF', 'NIA', 'VITB6A', 'VITB12', 'VITC', 'VITD', 'TOCPHA', 'VITK1', 'FOLAC', 'FOLDFE', 'FOLFD', 'CA', 'FE', 'K'];
-        // create a dictionary of vitamin (key) & their quantities (value)
-        var nutrient_values = new Map();
-        var nutrient_keys = ["Vitamin A", "Thiamin", "Riboflavin", "Niacin", "Vitamin B6", "Vitamin B12", "Vitamin C", "Vitamin D", "Vitamin E", "Vitamin K", "Calcium", "Iron", "Potassium", "Vitamin B9"];
+        // Recommended intake values 
         var male_rec_values = [900, 1.2, 1.3, 16, 1.3, 2.4, 90, 15, 15, 120, 1000, 8, 4700, 400];
         var female_rec_values = [700, 1.1, 1.1, 14, 1.3, 2.4, 75, 15, 15, 90, 1000, 18, 4700, 400];
-        // handle nulls in queries -> initialize everything to 0
+
+        // Array of nutrients in query form
+        var nutrients_query_list = ['VITA_RAE', 'THIA', 'RIBF', 'NIA', 'VITB6A', 'VITB12', 'VITC', 'VITD', 'TOCPHA', 'VITK1', 'FOLAC', 'FOLDFE', 'FOLFD', 'CA', 'FE', 'K'];
+        
+        // Create a dictionary of nutrient (key) & their quantities (value)
+        var nutrient_values = new Map();
+        var nutrient_keys = ["Vitamin A", "Thiamin", "Riboflavin", "Niacin", "Vitamin B6", "Vitamin B12", "Vitamin C", "Vitamin D", "Vitamin E", "Vitamin K", "Calcium", "Iron", "Potassium", "Vitamin B9"];
+        // Initialize all key values to 0 to handle nulls when fetching item that's not in the API BD
         for(var j = 0; j < nutrient_keys.length; j++){ 
             nutrient_values.set(nutrient_keys[j], 0); 
         } 
 
-        // set vitamin values
-        // add the vitmain value to existing value in dictionary
+        // Function to add all the nutrient values of 1 item to our dictionary
         function addNutrients(obj, nutrients_query_list){
             for (var i = 0; i < nutrient_keys.length; i++) {
                 // handle B9, it takes 3 query keys
@@ -54,12 +59,11 @@ export default class MissingNutrients extends Component{
             }
         }
 
-        // look for vitamin in the json object
+        // Function to search for a vitamin's value from json object returned by the API
         // get its value & return as a number 
         // if null or not found, return 0
         function getNutrientValue(obj, key){
             const value = obj['hints'][0]['food']['nutrients'][key];
-            console.log(key + value);
             if (value) {
                 return Number(value);
             }
@@ -83,10 +87,6 @@ export default class MissingNutrients extends Component{
             }
         }
 
-        console.log("Updated:");
-        console.log([...nutrient_values.entries()]);
-
-
         // Get missing vitamins (vitaminS with value 0)
         this.state.missing_nutrients = [...nutrient_values.entries()]
         .filter(({ 1: v }) => v === 0)
@@ -107,7 +107,6 @@ export default class MissingNutrients extends Component{
             // repeat for female values
             for (var s = 0; s < nutrient_keys.length; s++) {
                 if (nutrient_values.get(nutrient_keys[s] < female_rec_values[s])) {
-                    // if its below, add to missing_vitamins
                     this.state.missing_nutrients.push(nutrient_keys[s]);
                 }
             }

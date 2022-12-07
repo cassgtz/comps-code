@@ -223,15 +223,15 @@ export default class StartPage extends Component {
                     <div style={{fontSize: '14px', fontFamily: 'helvetica', borderWidth: '1px', borderStyle: 'solid', borderColor: '#38b6ff', paddingBottom: '10px'}}>
                       {checkAllSwitch}
                       <ToggleExplanation/>
-                      <div style={{paddingLeft: '12px'}}>{sexSelection}</div>
+                      <div style={{paddingLeft: '14px', alignItems:'start'}}>{sexSelection}</div>
                     </div>
                   </div>
                 </div>
             : null}
-              <div style={{ paddingLeft: '55px', paddingRight: '55px',display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'content-box'}}>
+              <div style={{ paddingLeft: '55px', paddingRight: '55px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'content-box'}}>
                 {scanner}
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '25px'}}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '25px', paddingBottom: '30px'}}>
                 {this.state.shouldShowScannerComponent !== true ? scanButton : doneButton}
               </div>
             </div> 
