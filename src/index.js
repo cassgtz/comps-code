@@ -3,8 +3,8 @@
     The function in this file renders all components on the page
 
 */
-import StartPage from "./src/components/StartPage";
-import Header from "./src/components/Header";
+import StartPage from "./components/StartPage";
+import Header from "./components/Header";
 import { createRoot } from 'react-dom/client';
 
 function WebPage(){
