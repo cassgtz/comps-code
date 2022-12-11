@@ -14,7 +14,7 @@ export function DisplayRecommendationsText(){
                 Looks like you're not getting enough of the micronutrients shown below. Click on each to see what foods are high in the micronutrient! 
             </p>
             <p style={{width: '350px', paddingRight: '5px', paddingLeft: '5px', display:'flex', textAlign:'center', color: "grey", fontSize: '13px', fontFamily: 'helvetica'}}>
-            (Foods are listed in order of highest to lowest content of the micronutrient.)
+            (Foods are listed in order of highest to lowest content of the micronutrient but they all contain 20% or more of your recommended intake value.)
             </p>
         </div>
     );

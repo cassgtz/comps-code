@@ -80,8 +80,6 @@ export default class MissingNutrients extends Component{
             // check if a response returned
             if (response.ok) {
                 var data = await response.json();
-                console.log("API response:");
-                console.log(data);
                 // Add all vitamins 
                 addNutrients(data, nutrients_query_list);
             }

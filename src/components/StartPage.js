@@ -83,7 +83,6 @@ export default class StartPage extends Component {
           // Save scanned barcodes into an array
           onScan={(scanResult)=>{
             this.scannedBarcodes.push(scanResult.barcodes[0].data);
-            console.log(this.scannedBarcodes);
           }}
           onScanError={console.error}
           scanSettings={this.getScanSettings()}
