@@ -29,4 +29,8 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run deploy`
 
+Deploys the app to github pages. It creates a branch named `gh-pages` that hosts the app.\
+
+Open [https://cassgtz.github.io/comps-code/](https://cassgtz.github.io/comps-code/) to view it in your browser.
