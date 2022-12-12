@@ -45,7 +45,7 @@ Deploys the app to github pages. It creates a branch named `gh-pages` that hosts
 You MUST have a github account & create a repository for the project. In line 2 of package.json, replace the homepage value with: 
 `http://<YOUR GITHUB USER NAME>.github.io/<YOUR REPOSITORY NAME>`
 
-Open https://<YOUR GITHUB USER NAME>.github.io/<YOUR REPO NAME>/ to view it in your browser.
+Open https://`<YOUR GITHUB USER NAME>`.github.io/`<YOUR REPO NAME>`/ to view it in your browser.
 
 ### `npm run eject`
 
