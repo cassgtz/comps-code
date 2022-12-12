@@ -4,12 +4,21 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Replication Instructions
 
-* Clone this repository to your machine
-* Replace Edamam API credentials in MissingNutrients.js:
+1. Clone this repository to your machine
+2. Replace Edamam API credentials in MissingNutrients.js:
     * Sign up for food database api credentials here: [https://developer.edamam.com/food-database-api](https://developer.edamam.com/food-database-api).
-* Replace Scandit SDK liscense key in StartPage.js:
+3. Replace Scandit SDK liscense key in StartPage.js:
     * Sign up for a free trial here: [https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk](https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk).
-### 
+4. Save the files.
+5. Run `npm -force install` to install required packages
+
+### Deploying to github pages
+
+To host your own page on github pages, you must have a github account & create a repository for the project. In line 2 of package.json, replace the homepage value with: 
+`http://<YOUR GITHUB USER NAME>.github.io/<YOUR REPOSITORY NAME>`
+
+Then, run `npm run deploy`
+
 
 ## Available Scripts
 

@@ -80,30 +80,6 @@ export default class MissingNutrients extends Component{
                 return 0;
             }
          }
-        
-        // Function to create the list of the nutrients whose total value do not meet the user's recommended intake
-        function getMissingNutrients(){
-            //Based on user's sex:
-                //compare total nutrient value from dictionary to the recommended intake value
-                //if it's below, add to list of missing nutrients
-            if (this.props.sex === "Male"){
-                for (var k = 0; k < nutrient_keys.length; k++) {
-                    if (nutrient_values.get(nutrient_keys[k] < male_rec_values[k])) {
-                        this.state.missing_nutrients.push(nutrient_keys[k]);
-                    }
-                }
-            }
-            else {
-                for (var s = 0; s < nutrient_keys.length; s++) {
-                    if (nutrient_values.get(nutrient_keys[s] < female_rec_values[s])) {
-                        this.state.missing_nutrients.push(nutrient_keys[s]);
-                    }
-                }
-            }
-
-            // Create list of missing REQUIRED nutrients -- if user did not check "check for ALL"
-            this.state.filtered_missing_nutrients = this.state.missing_nutrients.filter(missing => requiredNutrients.includes(missing));
-        }
 
         /**
           
@@ -124,8 +100,31 @@ export default class MissingNutrients extends Component{
             }
         }
 
-        // Get list of nutrients that do not meet recommended intake value
-        getMissingNutrients();
+        /**
+            GET LIST OF MISSING NUTRIENTS
+         */
+        // If nutrient's total value is 0, add to list 
+        this.state.missing_nutrients = [...nutrient_values.entries()]
+        .filter(({ 1: v }) => v === 0)
+        .map(([k]) => k);
+
+        // If nutrient's total value is less than user's recommended in take value, add to list
+        if (this.props.sex === "Male"){
+            for (var k = 0; k < nutrient_keys.length; k++) {
+                if (nutrient_values.get(nutrient_keys[k] < male_rec_values[k])) {
+                    this.state.missing_nutrients.push(nutrient_keys[k]);
+                }
+            }
+        }
+        else {
+            for (var s = 0; s < nutrient_keys.length; s++) {
+                if (nutrient_values.get(nutrient_keys[s] < female_rec_values[s])) {
+                    this.state.missing_nutrients.push(nutrient_keys[s]);
+                }
+            }
+        }
+        // Create list of missing REQUIRED nutrients -- if user did not check "check for ALL"
+        this.state.filtered_missing_nutrients = this.state.missing_nutrients.filter(missing => requiredNutrients.includes(missing));
         this.setState({loading: false});
     }
 
