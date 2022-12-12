@@ -6,11 +6,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 1. Clone this repository to your machine
 2. Replace Edamam API credentials in MissingNutrients.js:
-    * Sign up for food database api credentials here: [https://developer.edamam.com/food-database-api](https://developer.edamam.com/food-database-api).
-3. Replace Scandit SDK liscense key in StartPage.js:
-    * Sign up for a free trial here: [https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk](https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk).
-4. Save the files.
-5. Run `npm -force install` to install required packages
+    * Sign up for food database credentials here: [https://developer.edamam.com/food-database-api](https://developer.edamam.com/food-database-api)
+3. Replace Scandit SDK liscense key in StartPage.js (the current key expires on Decemeber 31, 2022):
+    * Sign up for a free trial here: [https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk](https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk)
+4. Save the edited files & run `npm -force install` in the project directory to install required packages
 
 ## Available Scripts
 
@@ -21,7 +20,7 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
+The page will reload when you make any changes.\
 You may also see any lint errors in the console.
 
 ### `npm test`
@@ -41,11 +40,14 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `npm run deploy`
 
-Deploys the app to github pages. It creates a branch named `gh-pages` that hosts the app.\
-You MUST have a github account & create a repository for the project. In line 2 of package.json, replace the homepage value with: 
+Deploys the app to GitHub Pages (a hosting tool). It creates a branch named `gh-pages` that hosts the app.\
+To do this, you MUST have a github account & create a PUBLIC repository for the project. In line 2 of package.json, replace the homepage value with:
+
 `http://<YOUR GITHUB USER NAME>.github.io/<YOUR REPOSITORY NAME>`
 
-Open https://`<YOUR GITHUB USER NAME>`.github.io/`<YOUR REPO NAME>`/ to view it in your browser.
+Add, commit, and push your changes. Open https://`<YOUR GITHUB USER NAME>`.github.io/`<YOUR REPO NAME>`/ to view it in your browser.
+
+To learn more about GitHub Pages, go to [https://pages.github.com](https://pages.github.com).
 
 ### `npm run eject`
 
