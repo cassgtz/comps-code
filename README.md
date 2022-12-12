@@ -1,6 +1,6 @@
 # GroceryCheck
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Open [https://cassgtz.github.io/comps-code/](https://cassgtz.github.io/comps-code/) to view it in your browser.
 
 ## Replication Instructions
 
@@ -11,14 +11,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     * Sign up for a free trial here: [https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk](https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk).
 4. Save the files.
 5. Run `npm -force install` to install required packages
-
-### Deploying to github pages
-
-To host your own page on github pages, you must have a github account & create a repository for the project. In line 2 of package.json, replace the homepage value with: 
-`http://<YOUR GITHUB USER NAME>.github.io/<YOUR REPOSITORY NAME>`
-
-Then, run `npm run deploy`
-
 
 ## Available Scripts
 
@@ -50,8 +42,10 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `npm run deploy`
 
 Deploys the app to github pages. It creates a branch named `gh-pages` that hosts the app.\
+You MUST have a github account & create a repository for the project. In line 2 of package.json, replace the homepage value with: 
+`http://<YOUR GITHUB USER NAME>.github.io/<YOUR REPOSITORY NAME>`
 
-Open [https://cassgtz.github.io/comps-code/](https://cassgtz.github.io/comps-code/) to view it in your browser.
+Open https://<YOUR GITHUB USER NAME>.github.io/<YOUR REPO NAME>/ to view it in your browser.
 
 ### `npm run eject`
 
