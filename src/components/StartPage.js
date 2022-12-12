@@ -21,19 +21,24 @@ import { Switch, Button, styled, alpha, FormControlLabel } from "@material-ui/co
 
 export default class StartPage extends Component {
   
-  // Declare input variables 
+  /**
+  
+    SET ALL VARIABLES
+  
+  */
   doneScanning = false; // to show output results
   sex = "Female"; // Sex default
   checkAll = 0; // Check for all vitamins? -- default is off 
 
-  // Decalre Barcode Scanner variables
+  // Decalare Barcode Scanner variables -- most of the set up is from scandit-sdk Demo
+  // REPLACE WITH YOUR SCANDIT SDK KEY
   licenseKey = "AYvCVQujKQb5DckwPQtmcGYN1lZiEUK4vkAbga99BLniAn6uKhv0FdAqexRSYqdIZ0g8dDlmQxGkTz6ej34526YhxBGBIlhqo2PUBrEoitFOSj/YlhyDylZEPX/OA9FhNHGAkUpcTmVMS01IxVwZU6Q5+0v9D21w3hTuBOAeQb1aAYFdE66sOugcLvgEsxHmlDr52/8a6L5kO/qaz3OZ+PFkRnNzd8MTUwSndXv3C/phtuXqwKwWK9Gtqw+7IcjA4WAiTghK2I8PdOwFNR6r+ED9GhkaB6MyXQOl42duzELV+0GS57EpfFkX9hAUsjCwjl8k/AYfea0JRxKWgl8BwYB42UPsRSyOejSbfbTS4NEv9MJsEsi0cXa6Mh9nzZpRpwZsrqWbT83v0S2cV5e05Dg0etAIjpws3JuRoy7BI44fxUO5wrqELntK03w9m2+Ji/V3L4p7vy0YRQOm/j06rdL+X/is2S/30rFKxUX10Snm+vV904To/vEtI8omWRY8moChozDPI3bvJsoz76IM0zKrcdIHR5WadJCD+7TTlshjBTg7YcCppBt50YOq2wQq2I17vawQKYqbJKYTuiEao2j1gtMR2IsRc0UH7ktRKFsn2AN76Yo8zUqY6BkdZhleUQpybENud7ouaZdW6W2ZVaW6d7mts9cFp/2nrFbSgDu7T1rx28SD3gbaVeefeeaawbsv/Wu61bKrFaO5VUOhRXpqRYqq1zrV+0Ijlehkwaj5cD4jh1BGomm8gE6r4KFqVGAlny+HKPGOIA3HF5aqV+cmiynaibtsJvS/kOAaUFWVCXQn2jFnqpueqDhm2Zlfb5V8mWpg4HLp8e1YGzAtOM0M";
   scannedBarcodes = [];
 
   constructor(props) {
     super(props);
     this.state = {
-      shouldShowScannerComponent: false,
+      shouldShowScannerComponent: false, // enables/disables the barcode scanner
       style: {width: '0.5px', height: '0.5px'},
       paused: true,
       accessCamera: false,
@@ -52,7 +57,7 @@ export default class StartPage extends Component {
       visible: true,
       viewfinderArea: {x: 0, y: 0, width: 1, height: 1},
       zoom: 0,
-      cameraType: Camera.Type.FRONT,
+      cameraType: Camera.Type.BACK,
       singleImageModeSettings: {
         desktop: {
           usageStrategy: SingleImageModeSettings.UsageStrategy.FALLBACK,
@@ -112,6 +117,11 @@ export default class StartPage extends Component {
   };
 
   render() {
+    /**
+     
+      CREATE THE START PAGE + SCANNING PAGE UI COMPONENTS HERE
+
+     */
     const scanner = this.getScanner();
 
     const BlueSwitch = styled(Switch)(({ theme }) => ({
@@ -211,6 +221,15 @@ export default class StartPage extends Component {
     
 
     return (
+      /**
+
+        If user has not scanned anything, return: 
+            If the scanner is off, return all components for the start page
+            else (scanner is on), return the scanning page components
+        Else return: 
+          Recommendations page (MissingNutrients component)
+
+       */
       <React.Fragment>
         {this.doneScanning === false ? (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>

@@ -1,7 +1,7 @@
 /** 
 
     This component creates a React Fragrment container for the list of missing nutrients. 
-    Thif file also contains the food sources for each nutrient.
+    Thif file also contains the food sources & description of benefits for each nutrient.
     The code is based on a collapsible list example from Max R.: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20 
 
 */
@@ -10,6 +10,7 @@ import React, { Component } from "react";
 import List from "./List";
 
 class ListContainer extends Component{
+    // This json object stores each nutrient's name, a short description of its benefits, & an array of its food sources. 
     state = {
         foodSources: [{
                 "id": 1,
@@ -492,12 +493,15 @@ class ListContainer extends Component{
     };
     
     render(){
+        
+        // For EACH nutrient in the above json object, return a List component.
+
         return <React.Fragment>
                     {this.state.foodSources.map(list => 
                         <List
                             key={list.id}
                             list={list}
-                            missing_nutrients={this.props.missing_nutrients}
+                            missing_nutrients={this.props.missing_nutrients} // prop passed in from MissingNutrients
                         />
                     )}
                 </React.Fragment>

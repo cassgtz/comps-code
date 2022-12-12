@@ -1,6 +1,6 @@
 /*
 
-    This component renders each micronutrient in the list of missing micronutrients. 
+    This component renders a food source as an inidividual item of a list. 
     The code is based on a collapsible list example from Max R.: https://medium.com/@freshmilkdev/reactjs-render-optimization-for-collapsible-material-ui-long-list-with-checkboxes-231b36892e20 
 
 */

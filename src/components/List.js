@@ -25,8 +25,12 @@ const List = ({list, classes, missing_nutrients}) => {
     const [expanded, setExpanded] = useState(false); // Hook to render list only when panel is actually expanded
 
     return(
-        // only render if the nutrient is in the list of missing nutrients
-        (missing_nutrients.includes(list.nutrient) ? 
+        /** 
+        Since this is looping through ALL nutrients, only render it if the nutrient is in the list of MISSING nutrients. 
+        For each MISSING nutrient, create a collapsible list of its benefits & food sources (from data object passed in from ListContainer component).
+            For each food source of the nutrient, create a ListItem component. 
+        */ 
+        (missing_nutrients.includes(list.nutrient) ?
             <Accordion className={classes.list} onClick={() => setExpanded(true)}>
                 <AccordionSummary expandIcon={<Icon.ChevronDown color="#38b6ff"/>}>
                     <Typography>{list.nutrient}</Typography>
