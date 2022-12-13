@@ -1,15 +1,17 @@
-# GroceryCheck
+# COMPS Project: GroceryCheck+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Open [https://cassgtz.github.io/comps-code/](https://cassgtz.github.io/comps-code/) to view it in your browser.
 
 ## Replication Instructions
 
-1. Clone this repository to your machine
-2. Replace Edamam API credentials in MissingNutrients.js:
+1. You must enable JavaScript to run this app. Install it here: [https://nodejs.dev/en/download/](https://nodejs.dev/en/download/)
+2. Clone this repository to your machine
+3. Replace Edamam API credentials in src/components/MissingNutrients.js:
     * Sign up for food database credentials here: [https://developer.edamam.com/food-database-api](https://developer.edamam.com/food-database-api)
-3. Replace Scandit SDK liscense key in StartPage.js (the current key expires on Decemeber 31, 2022):
+4. Replace Scandit SDK liscense key in src/components/StartPage.js:
     * Sign up for a free trial here: [https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk](https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk)
-4. Save the edited files & run `npm -force install` in the project directory to install required packages
+5. Save both of the edited files.
+6. In the project directory, run `npm -force install` to install required packages
 
 ## Available Scripts
 
