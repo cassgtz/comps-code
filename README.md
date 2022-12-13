@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Replication Instructions
 
-1. You must enable JavaScript to run this app. Install it here: [https://nodejs.dev/en/download/](https://nodejs.dev/en/download/)
+1. You must enable Node >= 14.0.0 and npm >= 5.6 to run this app. Install it here: [https://nodejs.dev/en/download/](https://nodejs.dev/en/download/)
 2. Clone this repository to your machine
 3. Replace Edamam API credentials in src/components/MissingNutrients.js:
     * Sign up for food database credentials here: [https://developer.edamam.com/food-database-api](https://developer.edamam.com/food-database-api)
