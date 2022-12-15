@@ -80,7 +80,7 @@ The code is compromised of the following major components:
  
  The app functions as follows: 
  
- ![]()
+ ![](Overview.pgn)
 
 ## Learn More
 
