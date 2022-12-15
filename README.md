@@ -6,9 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 1. You must enable Node >= 14.0.0 and npm >= 5.6 to run this app. Install it here: [https://nodejs.dev/en/download/](https://nodejs.dev/en/download/)
 2. Clone this repository to your machine
-3. Replace Edamam API credentials in src/components/MissingNutrients.js:
-    * Sign up for food database credentials here: [https://developer.edamam.com/food-database-api](https://developer.edamam.com/food-database-api)
-4. Replace Scandit SDK liscense key in src/components/StartPage.js:
+3. Replace the Edamam food database API credentials in src/components/MissingNutrients.js:
+    * Sign up for credentials here: [https://developer.edamam.com/food-database-api](https://developer.edamam.com/food-database-api)
+4. Replace the Scandit SDK liscense key in src/components/StartPage.js:
     * Sign up for a free trial here: [https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk](https://ssl.scandit.com/dashboard/sign-up?p=test&source=websdk)
 5. Save both of the edited files.
 6. In the project directory, run `npm -force install` to install required packages
