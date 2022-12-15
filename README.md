@@ -63,12 +63,24 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ## Code Architecture Overview
 
-The code works as follows: 
+The code is compromised of the following major components: 
 * StartPage Component:
-   * Allows users to set preferences (do/don’t check for all vitamins, sex) and contains scan button 
-Clicking scan button opens the barcode scanner + ‘done’ button
-Clicking done button returns MissingNutrients if user scanned something. If nothing was scanned, clicking done button will return initial preferences options.
+   * Allows users to adjust settings (do/don’t check for all vitamins, sex) & contains the scan button 
+   * Clicking the scan button opens the barcode scanner & ‘done’ button
+   * Clicking the done button returns the MissingNutrients component if a barcode was scanned. If nothing was scanned, clicking the done button will return initial setting options.
+* MissingNutrients Component:
+   * Gets the micro nutrient data for each scanned barcode using Edamam food database API
+   * Handles calculations of total micronutrients for all scanned food items & generates the list of micronutrients that the user is missing
+   * Returns the ListContainer component.
+* ListContainer Component:
+   * Stores each micronutrient's description of benefits & a list of its food sources as a JSON object
+   * Returns a list of the missing micronutrients and a collapsible list of its food sources + benefits
  
+ Every component's file in this project contains comments throughout for more details & explanation.
+ 
+ The app functions as follows: 
+ 
+ ![]()
 
 ## Learn More
 
