@@ -63,6 +63,13 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ## Code Architecture Overview
 
+The code works as follows: 
+* StartPage Component:
+   * Allows users to set preferences (do/don’t check for all vitamins, sex) and contains scan button 
+Clicking scan button opens the barcode scanner + ‘done’ button
+Clicking done button returns MissingNutrients if user scanned something. If nothing was scanned, clicking done button will return initial preferences options.
+ 
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
